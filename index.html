@@ -77,13 +77,14 @@
         }
 
         /* ==================================================
-           2. 顶部导航栏
+           2. 顶部导航
         ================================================== */
 
         nav {
             position: fixed;
             top: 0;
             left: 0;
+            z-index: 1000;
 
             width: 100%;
             height: 64px;
@@ -92,13 +93,11 @@
             align-items: center;
             justify-content: center;
 
-            background: rgba(8, 8, 12, 0.66);
+            background: rgba(8, 8, 12, 0.60);
             border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-
-            z-index: 1000;
         }
 
         .nav-container {
@@ -140,12 +139,12 @@
         }
 
         /* ==================================================
-           3. 首页 Hero
-           图片铺满首屏，人物位于右侧
+           3. 首屏 Hero
         ================================================== */
 
         .hero {
             position: relative;
+            isolation: isolate;
 
             width: 100%;
             min-height: 100vh;
@@ -159,59 +158,134 @@
         }
 
         /*
-            首屏整张照片。
+           第一层：整张照片作为低对比度背景。
 
-            object-position:
-            第一个数值控制左右裁切；
-            第二个数值控制上下裁切。
-
-            这张照片人物位于原图下方，
-            因此第二个数值设得较大，让人物脸部在网页中上移。
+           这一层让页面左侧也能看到天空、建筑和草坪，
+           不会变成完全纯黑的一块。
         */
 
-        .hero-photo {
+        .hero-background {
             position: absolute;
-            top: 64px;
-            left: 0;
+            inset: 64px 0 0;
+            z-index: -4;
 
-            width: 100%;
-            height: calc(100vh - 64px);
-            min-height: 650px;
+            background-image: url("./profile.jpg");
+            background-size: cover;
+            background-position: center 48%;
+            background-repeat: no-repeat;
 
-            object-fit: cover;
-            object-position: 72% 78%;
+            filter:
+                brightness(0.68)
+                saturate(0.88);
+
+            transform: scale(1.015);
         }
 
         /*
-            左侧深、右侧浅：
-            左侧文字清晰，同时还能隐约看到照片和建筑。
+           第二层：全局暗色处理。
+           数值较轻，不会彻底遮住照片。
+        */
+
+        .hero-background::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    0deg,
+                    rgba(8, 8, 12, 0.74) 0%,
+                    rgba(8, 8, 12, 0.20) 40%,
+                    rgba(8, 8, 12, 0.08) 100%
+                );
+
+            pointer-events: none;
+        }
+
+        /*
+           第三层：右侧人物照片。
+
+           width 控制人物大小：
+           数值越小，人物越小。
+
+           bottom 控制整张照片上下位置：
+           数值越大，人物整体越靠上。
+        */
+
+        .hero-portrait {
+            position: absolute;
+
+            right: 1%;
+            bottom: 5%;
+            z-index: -2;
+
+            width: 58%;
+            height: 88%;
+
+            object-fit: contain;
+            object-position: right bottom;
+
+            filter:
+                brightness(0.92)
+                contrast(1.02)
+                saturate(0.96);
+
+            /*
+               让前景照片的左边缘自然消失，
+               不会出现明显的矩形边界。
+            */
+            -webkit-mask-image:
+                linear-gradient(
+                    to right,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.15) 11%,
+                    #000000 30%,
+                    #000000 100%
+                );
+
+            mask-image:
+                linear-gradient(
+                    to right,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.15) 11%,
+                    #000000 30%,
+                    #000000 100%
+                );
+
+            pointer-events: none;
+        }
+
+        /*
+           第四层：左侧渐变。
+
+           左侧较暗，方便阅读标题；
+           但透明度没有设为完全黑色，
+           因此仍能看到后面的建筑和天空。
         */
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            z-index: 1;
+            z-index: -1;
 
             background:
                 linear-gradient(
                     90deg,
-                    rgba(8, 8, 12, 0.96) 0%,
-                    rgba(8, 8, 12, 0.92) 20%,
-                    rgba(8, 8, 12, 0.76) 38%,
-                    rgba(8, 8, 12, 0.42) 55%,
-                    rgba(8, 8, 12, 0.12) 76%,
-                    rgba(8, 8, 12, 0.06) 100%
-                ),
-                linear-gradient(
-                    0deg,
-                    rgba(8, 8, 12, 0.90) 0%,
-                    rgba(8, 8, 12, 0.38) 24%,
-                    rgba(8, 8, 12, 0.06) 62%,
-                    rgba(8, 8, 12, 0.10) 100%
+                    rgba(8, 8, 12, 0.80) 0%,
+                    rgba(8, 8, 12, 0.70) 24%,
+                    rgba(8, 8, 12, 0.50) 43%,
+                    rgba(8, 8, 12, 0.20) 65%,
+                    rgba(8, 8, 12, 0.04) 86%,
+                    rgba(8, 8, 12, 0.02) 100%
                 );
 
             pointer-events: none;
         }
+
+        /*
+           首屏底部自然过渡到下方深色页面。
+        */
 
         .hero::after {
             content: "";
@@ -219,10 +293,10 @@
             position: absolute;
             left: 0;
             bottom: -1px;
-            z-index: 2;
+            z-index: 3;
 
             width: 100%;
-            height: 130px;
+            height: 145px;
 
             background:
                 linear-gradient(
@@ -236,24 +310,24 @@
 
         .hero-content {
             position: relative;
-            z-index: 3;
+            z-index: 4;
 
             width: calc(100% - 48px);
             max-width: var(--content-width);
 
             margin: 0 auto;
-            padding-top: 20px;
+            padding-top: 10px;
         }
 
         .hero-copy {
-            width: 57%;
+            width: 56%;
             max-width: 720px;
         }
 
         .hero-heading {
             color: #ffffff;
 
-            font-size: clamp(2.35rem, 3.85vw, 4.25rem);
+            font-size: clamp(2.35rem, 3.85vw, 4.2rem);
             font-weight: 820;
             line-height: 1.02;
             letter-spacing: -0.052em;
@@ -302,11 +376,14 @@
             max-width: 620px;
             margin-top: 25px;
 
-            color: rgba(255, 255, 255, 0.72);
+            color: rgba(255, 255, 255, 0.74);
 
             font-size: 16px;
             font-weight: 400;
             line-height: 1.85;
+
+            text-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.30);
         }
 
         .hero-action {
@@ -318,8 +395,8 @@
             padding: 13px 20px;
 
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.19);
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.20);
             border-radius: 999px;
 
             backdrop-filter: blur(14px);
@@ -336,8 +413,8 @@
         }
 
         .hero-action:hover {
-            background: rgba(255, 255, 255, 0.17);
-            border-color: rgba(255, 255, 255, 0.30);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.32);
             transform: translateY(-2px);
         }
 
@@ -574,7 +651,7 @@
         }
 
         /* ==================================================
-           6. 工作经历与教育背景
+           6. 工作经历和教育背景
         ================================================== */
 
         .info-card {
@@ -724,8 +801,12 @@
         ================================================== */
 
         @media (max-width: 1050px) {
-            .hero-photo {
-                object-position: 68% 78%;
+            .hero-portrait {
+                right: -2%;
+                bottom: 5%;
+
+                width: 64%;
+                height: 86%;
             }
 
             .hero-copy {
@@ -761,16 +842,30 @@
             .hero {
                 min-height: 100svh;
                 padding-top: 58px;
+
                 align-items: flex-end;
             }
 
-            .hero-photo {
-                top: 58px;
+            .hero-background {
+                inset: 58px 0 0;
+                background-position: center 48%;
+            }
 
-                height: calc(100svh - 58px);
-                min-height: 650px;
+            /*
+               手机端人物改为更大的海报效果，
+               但不会像电脑端一样压住文字。
+            */
 
-                object-position: 53% 70%;
+            .hero-portrait {
+                right: -18%;
+                bottom: 5%;
+
+                width: 118%;
+                height: 83%;
+
+                object-position: right bottom;
+
+                opacity: 0.94;
             }
 
             .hero-overlay {
@@ -779,8 +874,8 @@
                         0deg,
                         rgba(8, 8, 12, 0.98) 0%,
                         rgba(8, 8, 12, 0.88) 31%,
-                        rgba(8, 8, 12, 0.28) 63%,
-                        rgba(8, 8, 12, 0.10) 100%
+                        rgba(8, 8, 12, 0.30) 62%,
+                        rgba(8, 8, 12, 0.08) 100%
                     );
             }
 
@@ -885,8 +980,12 @@
                 font-size: 12px;
             }
 
-            .hero-photo {
-                object-position: 52% 68%;
+            .hero-portrait {
+                right: -23%;
+                bottom: 7%;
+
+                width: 128%;
+                height: 80%;
             }
 
             .hero-heading {
@@ -902,7 +1001,7 @@
 
 <body>
 
-    <!-- 顶部导航栏 -->
+    <!-- 顶部导航 -->
     <nav>
         <div class="nav-container">
 
@@ -919,20 +1018,23 @@
         </div>
     </nav>
 
-    <!-- 首页 -->
+    <!-- 首屏 -->
     <header class="hero">
 
-        <!-- 整张照片 -->
+        <!-- 第一层：低对比度全屏背景 -->
+        <div class="hero-background"></div>
+
+        <!-- 第二层：右侧较小人物图 -->
         <img
-            class="hero-photo"
+            class="hero-portrait"
             src="./profile.jpg"
             alt="Yuanya Song at the University of Toronto"
         >
 
-        <!-- 照片遮罩 -->
+        <!-- 第三层：左侧渐变 -->
         <div class="hero-overlay"></div>
 
-        <!-- 左侧文字 -->
+        <!-- 首屏文字 -->
         <div class="hero-content">
 
             <div class="hero-copy">
@@ -1224,7 +1326,7 @@
 
             </section>
 
-            <!-- 联系 -->
+            <!-- 联系方式 -->
             <section id="contact" class="section">
 
                 <div class="contact-card">
