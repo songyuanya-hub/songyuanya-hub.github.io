@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: center;
 
-            background: rgba(8, 8, 12, 0.62);
+            background: rgba(10, 16, 23, 0.62);
             border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 
             backdrop-filter: blur(20px);
@@ -138,7 +138,7 @@
 
         /* ==================================================
            3. 首页 Hero
-           左侧虚化教学楼 + 右侧清晰人物
+           左侧灰蓝色虚化教学楼 + 右侧清晰人物
         ================================================== */
 
         .hero {
@@ -152,16 +152,15 @@
             display: flex;
             align-items: center;
 
-            background: var(--bg-main);
+            background: #0c151f;
             overflow: hidden;
         }
 
         /*
            左侧和全屏环境背景。
 
-           只占 Hero 上方约 73% 的高度，
-           因此背景层主要显示天空和教学楼，
-           不会把原图下方的人脸带到左侧。
+           只显示原图上半部分，主要展示天空与教学楼，
+           避免左侧背景出现第二张人脸。
         */
 
         .hero-background {
@@ -171,29 +170,26 @@
             z-index: -5;
 
             width: 108%;
-            height: 73%;
+            height: 74%;
 
             background-image: url("./profile.jpg");
-
-            /*
-               放大照片并定位到原图上半部分，
-               重点展示天空和教学楼。
-            */
             background-size: 118% auto;
             background-position: center top;
             background-repeat: no-repeat;
 
             filter:
                 blur(8px)
-                brightness(0.67)
-                saturate(0.82);
+                brightness(0.72)
+                saturate(0.80);
 
             transform: scale(1.07);
         }
 
         /*
-           背景下方补充渐变，
-           避免背景层高度结束后出现断层。
+           左下方灰蓝色补充层。
+
+           用于避免左下方变成突然的大块纯黑，
+           同时保留足够对比度让白色文字清楚。
         */
 
         .hero-background-fade {
@@ -204,22 +200,21 @@
             background:
                 linear-gradient(
                     to bottom,
-                    rgba(8, 8, 12, 0.02) 0%,
-                    rgba(8, 8, 12, 0.08) 43%,
-                    rgba(8, 8, 12, 0.55) 72%,
-                    #08080c 100%
+                    rgba(37, 57, 74, 0.01) 0%,
+                    rgba(31, 49, 65, 0.08) 38%,
+                    rgba(24, 39, 53, 0.34) 63%,
+                    rgba(18, 30, 42, 0.76) 82%,
+                    rgba(11, 19, 28, 0.98) 100%
                 );
 
             pointer-events: none;
         }
 
         /*
-           右侧清晰照片。
+           右侧清晰人物照片。
 
-           比上一版更大；
-           靠右放置；
-           左侧边缘使用宽范围渐隐，
-           不会出现矩形边界。
+           比之前稍大，人物位于右侧；
+           左侧使用宽范围渐隐，避免矩形分界线。
         */
 
         .hero-portrait {
@@ -233,15 +228,10 @@
             height: 94%;
 
             object-fit: cover;
-
-            /*
-               第一个数值控制照片内部左右位置；
-               第二个数值控制上下位置。
-            */
             object-position: 49% 60%;
 
             filter:
-                brightness(0.96)
+                brightness(0.97)
                 contrast(1.03)
                 saturate(0.97);
 
@@ -275,10 +265,10 @@
         }
 
         /*
-           左到右最终渐变。
+           左到右灰蓝色渐变。
 
-           左边有足够对比度，但不是纯黑；
-           中间逐渐透明，与右侧照片融合。
+           左边足够暗，保障文字清晰；
+           中间逐渐透明，平滑过渡到右侧人物照片。
         */
 
         .hero-overlay {
@@ -289,21 +279,21 @@
             background:
                 linear-gradient(
                     90deg,
-                    rgba(8, 8, 12, 0.72) 0%,
-                    rgba(8, 8, 12, 0.64) 20%,
-                    rgba(8, 8, 12, 0.52) 36%,
-                    rgba(8, 8, 12, 0.38) 48%,
-                    rgba(8, 8, 12, 0.23) 59%,
-                    rgba(8, 8, 12, 0.10) 70%,
-                    rgba(8, 8, 12, 0.02) 84%,
-                    rgba(8, 8, 12, 0) 100%
+                    rgba(13, 25, 37, 0.78) 0%,
+                    rgba(17, 31, 45, 0.70) 20%,
+                    rgba(23, 40, 55, 0.58) 35%,
+                    rgba(30, 48, 64, 0.44) 48%,
+                    rgba(36, 55, 71, 0.26) 60%,
+                    rgba(36, 54, 69, 0.11) 71%,
+                    rgba(28, 42, 54, 0.03) 84%,
+                    rgba(15, 23, 31, 0) 100%
                 );
 
             pointer-events: none;
         }
 
         /*
-           Hero 底部与后面内容自然衔接。
+           Hero 底部从灰蓝色自然过渡到后续深色区域。
         */
 
         .hero::after {
@@ -315,13 +305,15 @@
             z-index: 3;
 
             width: 100%;
-            height: 145px;
+            height: 150px;
 
             background:
                 linear-gradient(
                     to bottom,
-                    rgba(8, 8, 12, 0),
-                    var(--bg-main)
+                    rgba(18, 30, 42, 0),
+                    rgba(13, 22, 31, 0.48) 48%,
+                    rgba(9, 15, 22, 0.86) 78%,
+                    var(--bg-main) 100%
                 );
 
             pointer-events: none;
@@ -355,7 +347,7 @@
             letter-spacing: -0.052em;
 
             text-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.38);
+                0 10px 30px rgba(0, 0, 0, 0.40);
         }
 
         .hero-heading span {
@@ -398,7 +390,7 @@
             max-width: 620px;
             margin-top: 25px;
 
-            color: rgba(255, 255, 255, 0.74);
+            color: rgba(255, 255, 255, 0.76);
 
             font-size: 16px;
             font-weight: 400;
@@ -863,6 +855,8 @@
                 min-height: 100svh;
                 padding-top: 58px;
                 align-items: flex-end;
+
+                background: #0d1823;
             }
 
             .hero-background {
@@ -877,8 +871,19 @@
 
                 filter:
                     blur(6px)
-                    brightness(0.60)
+                    brightness(0.66)
                     saturate(0.82);
+            }
+
+            .hero-background-fade {
+                background:
+                    linear-gradient(
+                        to bottom,
+                        rgba(35, 53, 69, 0.02) 0%,
+                        rgba(26, 42, 56, 0.22) 48%,
+                        rgba(17, 29, 41, 0.74) 75%,
+                        rgba(9, 16, 24, 0.98) 100%
+                    );
             }
 
             .hero-portrait {
@@ -914,10 +919,10 @@
                 background:
                     linear-gradient(
                         0deg,
-                        rgba(8, 8, 12, 0.98) 0%,
-                        rgba(8, 8, 12, 0.90) 31%,
-                        rgba(8, 8, 12, 0.37) 62%,
-                        rgba(8, 8, 12, 0.09) 100%
+                        rgba(8, 14, 21, 0.98) 0%,
+                        rgba(13, 24, 35, 0.90) 31%,
+                        rgba(25, 42, 57, 0.42) 62%,
+                        rgba(35, 55, 72, 0.10) 100%
                     );
             }
 
@@ -1063,10 +1068,10 @@
     <!-- 首页 Hero -->
     <header class="hero">
 
-        <!-- 左侧虚化天空和教学楼 -->
+        <!-- 左侧虚化天空与教学楼 -->
         <div class="hero-background"></div>
 
-        <!-- 背景下方渐变 -->
+        <!-- 左下方灰蓝色渐变 -->
         <div class="hero-background-fade"></div>
 
         <!-- 右侧清晰人物 -->
@@ -1076,7 +1081,7 @@
             alt="Yuanya Song at the University of Toronto"
         >
 
-        <!-- 左到右渐变 -->
+        <!-- 左到右灰蓝色渐变 -->
         <div class="hero-overlay"></div>
 
         <!-- 左侧文字 -->
