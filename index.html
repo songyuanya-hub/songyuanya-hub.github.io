@@ -26,11 +26,10 @@
             --bg-card-hover: #1a1a20;
 
             --text-main: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.66);
+            --text-secondary: rgba(255, 255, 255, 0.67);
             --text-muted: rgba(255, 255, 255, 0.43);
 
             --accent: #d95bb8;
-            --accent-soft: rgba(217, 91, 184, 0.18);
 
             --border: rgba(255, 255, 255, 0.10);
             --border-hover: rgba(217, 91, 184, 0.44);
@@ -76,7 +75,7 @@
         }
 
         /* ==================================================
-           2. 顶部导航栏
+           2. 顶部导航
         ================================================== */
 
         nav {
@@ -92,7 +91,7 @@
             align-items: center;
             justify-content: center;
 
-            background: rgba(8, 8, 12, 0.58);
+            background: rgba(8, 8, 12, 0.62);
             border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 
             backdrop-filter: blur(20px);
@@ -139,7 +138,7 @@
 
         /* ==================================================
            3. 首页 Hero
-           左侧虚化建筑 + 右侧清晰人物
+           左侧虚化教学楼 + 右侧清晰人物
         ================================================== */
 
         .hero {
@@ -158,102 +157,104 @@
         }
 
         /*
-           第一层：全屏虚化背景。
+           左侧和全屏环境背景。
 
-           使用同一张 profile.jpg，
-           让左侧也能看到天空、草坪与教学楼。
+           只占 Hero 上方约 73% 的高度，
+           因此背景层主要显示天空和教学楼，
+           不会把原图下方的人脸带到左侧。
         */
 
         .hero-background {
             position: absolute;
             top: 64px;
-            left: -3%;
+            left: -4%;
             z-index: -5;
 
-            width: 106%;
-            height: calc(100vh - 64px);
+            width: 108%;
+            height: 73%;
 
             background-image: url("./profile.jpg");
-            background-size: cover;
-            background-position: center 38%;
+
+            /*
+               放大照片并定位到原图上半部分，
+               重点展示天空和教学楼。
+            */
+            background-size: 118% auto;
+            background-position: center top;
             background-repeat: no-repeat;
 
             filter:
-                blur(7px)
-                brightness(0.64)
+                blur(8px)
+                brightness(0.67)
                 saturate(0.82);
 
-            transform: scale(1.06);
+            transform: scale(1.07);
         }
 
         /*
-           背景暗化层：
-           左侧更暗，右侧保留照片亮度。
+           背景下方补充渐变，
+           避免背景层高度结束后出现断层。
         */
 
-        .hero-background::after {
-            content: "";
-
+        .hero-background-fade {
             position: absolute;
             inset: 0;
+            z-index: -4;
 
             background:
                 linear-gradient(
-                    90deg,
-                    rgba(8, 8, 12, 0.76) 0%,
-                    rgba(8, 8, 12, 0.66) 25%,
-                    rgba(8, 8, 12, 0.44) 46%,
-                    rgba(8, 8, 12, 0.18) 68%,
-                    rgba(8, 8, 12, 0.07) 100%
-                ),
-                linear-gradient(
-                    0deg,
-                    rgba(8, 8, 12, 0.76) 0%,
-                    rgba(8, 8, 12, 0.16) 42%,
-                    rgba(8, 8, 12, 0.06) 100%
+                    to bottom,
+                    rgba(8, 8, 12, 0.02) 0%,
+                    rgba(8, 8, 12, 0.08) 43%,
+                    rgba(8, 8, 12, 0.55) 72%,
+                    #08080c 100%
                 );
 
             pointer-events: none;
         }
 
         /*
-           第二层：右侧清晰人物。
+           右侧清晰照片。
 
-           width 控制人物大小；
-           bottom 控制人物上下位置；
-           right 控制人物左右位置。
+           比上一版更大；
+           靠右放置；
+           左侧边缘使用宽范围渐隐，
+           不会出现矩形边界。
         */
 
         .hero-portrait {
             position: absolute;
 
-            right: 2%;
-            bottom: 4%;
+            right: -2%;
+            bottom: 0;
             z-index: -3;
 
-            width: 42%;
-            height: 86%;
+            width: 54%;
+            height: 94%;
 
             object-fit: cover;
-            object-position: 50% 58%;
-
-            filter:
-                brightness(0.95)
-                contrast(1.03)
-                saturate(0.96);
 
             /*
-               左边缘逐渐透明，
-               与左侧虚化背景自然融合。
+               第一个数值控制照片内部左右位置；
+               第二个数值控制上下位置。
             */
+            object-position: 49% 60%;
+
+            filter:
+                brightness(0.96)
+                contrast(1.03)
+                saturate(0.97);
 
             -webkit-mask-image:
                 linear-gradient(
                     to right,
                     transparent 0%,
-                    rgba(0, 0, 0, 0.08) 7%,
-                    rgba(0, 0, 0, 0.42) 18%,
-                    #000000 34%,
+                    rgba(0, 0, 0, 0.02) 5%,
+                    rgba(0, 0, 0, 0.10) 12%,
+                    rgba(0, 0, 0, 0.28) 22%,
+                    rgba(0, 0, 0, 0.58) 34%,
+                    rgba(0, 0, 0, 0.86) 44%,
+                    #000000 54%,
                     #000000 100%
                 );
 
@@ -261,9 +262,12 @@
                 linear-gradient(
                     to right,
                     transparent 0%,
-                    rgba(0, 0, 0, 0.08) 7%,
-                    rgba(0, 0, 0, 0.42) 18%,
-                    #000000 34%,
+                    rgba(0, 0, 0, 0.02) 5%,
+                    rgba(0, 0, 0, 0.10) 12%,
+                    rgba(0, 0, 0, 0.28) 22%,
+                    rgba(0, 0, 0, 0.58) 34%,
+                    rgba(0, 0, 0, 0.86) 44%,
+                    #000000 54%,
                     #000000 100%
                 );
 
@@ -271,10 +275,10 @@
         }
 
         /*
-           第三层：最终的左到右渐变。
+           左到右最终渐变。
 
-           左边保证标题清楚，
-           但不会把照片完全遮黑。
+           左边有足够对比度，但不是纯黑；
+           中间逐渐透明，与右侧照片融合。
         */
 
         .hero-overlay {
@@ -285,11 +289,13 @@
             background:
                 linear-gradient(
                     90deg,
-                    rgba(8, 8, 12, 0.66) 0%,
-                    rgba(8, 8, 12, 0.55) 25%,
-                    rgba(8, 8, 12, 0.36) 44%,
-                    rgba(8, 8, 12, 0.13) 63%,
-                    rgba(8, 8, 12, 0.02) 82%,
+                    rgba(8, 8, 12, 0.72) 0%,
+                    rgba(8, 8, 12, 0.64) 20%,
+                    rgba(8, 8, 12, 0.52) 36%,
+                    rgba(8, 8, 12, 0.38) 48%,
+                    rgba(8, 8, 12, 0.23) 59%,
+                    rgba(8, 8, 12, 0.10) 70%,
+                    rgba(8, 8, 12, 0.02) 84%,
                     rgba(8, 8, 12, 0) 100%
                 );
 
@@ -297,7 +303,7 @@
         }
 
         /*
-           首屏底部过渡到下方深色页面。
+           Hero 底部与后面内容自然衔接。
         */
 
         .hero::after {
@@ -435,7 +441,7 @@
         }
 
         /* ==================================================
-           5. 主体内容区域
+           5. 主体内容区
         ================================================== */
 
         .main-area {
@@ -818,11 +824,9 @@
 
         @media (max-width: 1050px) {
             .hero-portrait {
-                right: -1%;
-                bottom: 5%;
-
-                width: 46%;
-                height: 84%;
+                right: -4%;
+                width: 59%;
+                height: 92%;
             }
 
             .hero-copy {
@@ -848,7 +852,7 @@
             }
 
             .nav-links {
-                gap: 18px;
+                gap: 16px;
             }
 
             .nav-links a {
@@ -863,30 +867,47 @@
 
             .hero-background {
                 top: 58px;
-                left: -4%;
+                left: -6%;
 
-                width: 108%;
-                height: calc(100svh - 58px);
+                width: 112%;
+                height: 66%;
 
-                background-position: center 40%;
+                background-size: auto 100%;
+                background-position: center top;
 
                 filter:
                     blur(6px)
-                    brightness(0.58)
-                    saturate(0.80);
+                    brightness(0.60)
+                    saturate(0.82);
             }
 
             .hero-portrait {
-                right: -11%;
-                bottom: 7%;
+                right: -18%;
+                bottom: 4%;
 
-                width: 95%;
-                height: 74%;
+                width: 112%;
+                height: 79%;
 
                 object-fit: contain;
                 object-position: right bottom;
 
-                opacity: 0.95;
+                opacity: 0.96;
+
+                -webkit-mask-image:
+                    linear-gradient(
+                        to top,
+                        transparent 0%,
+                        #000000 12%,
+                        #000000 100%
+                    );
+
+                mask-image:
+                    linear-gradient(
+                        to top,
+                        transparent 0%,
+                        #000000 12%,
+                        #000000 100%
+                    );
             }
 
             .hero-overlay {
@@ -894,9 +915,9 @@
                     linear-gradient(
                         0deg,
                         rgba(8, 8, 12, 0.98) 0%,
-                        rgba(8, 8, 12, 0.88) 31%,
-                        rgba(8, 8, 12, 0.30) 62%,
-                        rgba(8, 8, 12, 0.08) 100%
+                        rgba(8, 8, 12, 0.90) 31%,
+                        rgba(8, 8, 12, 0.37) 62%,
+                        rgba(8, 8, 12, 0.09) 100%
                     );
             }
 
@@ -1002,11 +1023,11 @@
             }
 
             .hero-portrait {
-                right: -16%;
-                bottom: 8%;
+                right: -23%;
+                bottom: 5%;
 
-                width: 106%;
-                height: 72%;
+                width: 123%;
+                height: 76%;
             }
 
             .hero-heading {
@@ -1022,7 +1043,7 @@
 
 <body>
 
-    <!-- 顶部导航栏 -->
+    <!-- 顶部导航 -->
     <nav>
         <div class="nav-container">
 
@@ -1042,10 +1063,13 @@
     <!-- 首页 Hero -->
     <header class="hero">
 
-        <!-- 左侧及全屏虚化背景 -->
+        <!-- 左侧虚化天空和教学楼 -->
         <div class="hero-background"></div>
 
-        <!-- 右侧清晰人物照片 -->
+        <!-- 背景下方渐变 -->
+        <div class="hero-background-fade"></div>
+
+        <!-- 右侧清晰人物 -->
         <img
             class="hero-portrait"
             src="./profile.jpg"
@@ -1109,9 +1133,7 @@
                     <!-- 项目 01 -->
                     <article class="bento-card featured-card size-12">
 
-                        <span class="card-number">
-                            01
-                        </span>
+                        <span class="card-number">01</span>
 
                         <div>
                             <div class="card-category">
@@ -1147,9 +1169,7 @@
                     <!-- 项目 02 -->
                     <article class="bento-card size-6">
 
-                        <span class="card-number">
-                            02
-                        </span>
+                        <span class="card-number">02</span>
 
                         <div>
                             <div class="card-category">
@@ -1184,9 +1204,7 @@
                     <!-- 项目 03 -->
                     <article class="bento-card size-6">
 
-                        <span class="card-number">
-                            03
-                        </span>
+                        <span class="card-number">03</span>
 
                         <div>
                             <div class="card-category">
@@ -1343,6 +1361,7 @@
                         </div>
 
                     </div>
+
                 </div>
 
             </section>
@@ -1371,6 +1390,7 @@
             </section>
 
         </div>
+
     </main>
 
     <footer>
