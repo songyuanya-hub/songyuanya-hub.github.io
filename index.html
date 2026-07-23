@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
 
@@ -10,30 +10,31 @@
 
     <meta
         name="description"
-        content="Yuanya Song — UX Designer and Master of Information graduate from the University of Toronto."
+        content="Yuanya Song 的用户体验设计作品集，涵盖用户研究、交互设计、服务设计与数字产品设计。"
     >
 
     <title>Yuanya Song | UX Designer Portfolio</title>
 
     <style>
         /* ========================================
-           1. Global Settings
+           1. 全局设置
         ======================================== */
 
         :root {
             --bg-main: #08080c;
+            --bg-section: #0b0b0f;
             --bg-card: #141418;
             --bg-card-hover: #19191f;
 
             --text-main: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.64);
-            --text-muted: rgba(255, 255, 255, 0.42);
+            --text-secondary: rgba(255, 255, 255, 0.66);
+            --text-muted: rgba(255, 255, 255, 0.43);
 
-            --accent: #dc5ab8;
-            --accent-soft: rgba(220, 90, 184, 0.18);
+            --accent: #d85bb7;
+            --accent-light: #f08bd5;
 
             --border: rgba(255, 255, 255, 0.10);
-            --border-hover: rgba(220, 90, 184, 0.44);
+            --border-hover: rgba(216, 91, 183, 0.45);
 
             --content-width: 1140px;
         }
@@ -56,6 +57,8 @@
                 -apple-system,
                 BlinkMacSystemFont,
                 "SF Pro Display",
+                "PingFang SC",
+                "Microsoft YaHei",
                 "Helvetica Neue",
                 Arial,
                 sans-serif;
@@ -73,7 +76,7 @@
         }
 
         /* ========================================
-           2. Navigation
+           2. 顶部导航栏
         ======================================== */
 
         nav {
@@ -88,7 +91,7 @@
             align-items: center;
             justify-content: center;
 
-            background: rgba(8, 8, 12, 0.72);
+            background: rgba(8, 8, 12, 0.62);
             border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 
             backdrop-filter: blur(20px);
@@ -122,7 +125,7 @@
         }
 
         .nav-links a {
-            color: rgba(255, 255, 255, 0.68);
+            color: rgba(255, 255, 255, 0.72);
 
             font-size: 13px;
             font-weight: 500;
@@ -136,9 +139,8 @@
         }
 
         /* ========================================
-           3. Hero Section
-           Left: Text
-           Right: Portrait
+           3. 首屏 Hero
+           整张照片铺满，左边黑色渐变
         ======================================== */
 
         .hero {
@@ -149,61 +151,89 @@
             padding-top: 64px;
 
             display: flex;
-            align-items: stretch;
+            align-items: center;
 
-            background:
-                radial-gradient(
-                    circle at 20% 45%,
-                    rgba(75, 88, 120, 0.16),
-                    transparent 38%
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(8, 8, 12, 0.96) 0%,
+                    rgba(8, 8, 12, 0.90) 22%,
+                    rgba(8, 8, 12, 0.68) 42%,
+                    rgba(8, 8, 12, 0.24) 66%,
+                    rgba(8, 8, 12, 0.08) 100%
                 ),
-                var(--bg-main);
+                linear-gradient(
+                    0deg,
+                    rgba(8, 8, 12, 0.78) 0%,
+                    rgba(8, 8, 12, 0.20) 30%,
+                    rgba(8, 8, 12, 0.08) 72%,
+                    rgba(8, 8, 12, 0.14) 100%
+                ),
+                url("./profile.jpg");
+
+            background-size: cover;
+
+            /*
+               第一个数值控制左右位置：
+               数值越大，画面越偏向照片右侧；
+               数值越小，画面越偏向照片左侧。
+
+               第二个数值控制上下位置：
+               数值越小，人物会显得更靠上；
+               数值越大，人物会显得更靠下。
+            */
+            background-position: 72% 20%;
+            background-repeat: no-repeat;
 
             overflow: hidden;
         }
 
-        /* Left text area */
+        .hero::after {
+            content: "";
 
-        .hero-copy {
-            position: relative;
-            z-index: 4;
+            position: absolute;
+            left: 0;
+            bottom: -1px;
 
-            width: 56%;
-            min-height: calc(100vh - 64px);
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            padding:
-                90px
-                60px
-                80px
-                max(42px, calc((100vw - var(--content-width)) / 2));
+            width: 100%;
+            height: 150px;
 
             background:
                 linear-gradient(
-                    90deg,
-                    #08080c 0%,
-                    #08080c 74%,
-                    rgba(8, 8, 12, 0.88) 88%,
-                    rgba(8, 8, 12, 0) 100%
+                    to bottom,
+                    rgba(8, 8, 12, 0),
+                    var(--bg-main)
                 );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+
+            width: calc(100% - 48px);
+            max-width: var(--content-width);
+
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .hero-copy {
+            width: 54%;
+            max-width: 670px;
         }
 
         .hero-heading {
-            position: relative;
-            z-index: 4;
-
             color: #ffffff;
 
-            font-size: clamp(2.45rem, 3.65vw, 4rem);
+            font-size: clamp(2.55rem, 4.25vw, 4.55rem);
             font-weight: 820;
-            line-height: 1;
-            letter-spacing: -0.048em;
+            line-height: 1.02;
+            letter-spacing: -0.052em;
 
             text-shadow:
-                0 10px 28px rgba(0, 0, 0, 0.30);
+                0 10px 30px rgba(0, 0, 0, 0.34);
         }
 
         .hero-heading span {
@@ -212,7 +242,7 @@
         }
 
         .hero-heading span + span {
-            margin-top: 14px;
+            margin-top: 13px;
         }
 
         .hero-tags {
@@ -229,9 +259,9 @@
 
             padding: 8px 13px;
 
-            color: rgba(255, 255, 255, 0.90);
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.17);
             border-radius: 999px;
 
             backdrop-filter: blur(14px);
@@ -239,33 +269,35 @@
 
             font-size: 11px;
             font-weight: 650;
-            letter-spacing: 0.35px;
+            letter-spacing: 0.4px;
         }
 
         .hero-intro {
-            max-width: 590px;
+            max-width: 610px;
             margin-top: 25px;
 
-            color: rgba(255, 255, 255, 0.66);
+            color: rgba(255, 255, 255, 0.70);
 
             font-size: 16px;
             font-weight: 400;
-            line-height: 1.75;
+            line-height: 1.8;
         }
 
         .hero-action {
             display: inline-flex;
             align-items: center;
-            align-self: flex-start;
             gap: 8px;
 
             margin-top: 34px;
-            padding: 13px 19px;
+            padding: 13px 20px;
 
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.17);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.19);
             border-radius: 999px;
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
 
             font-size: 13px;
             font-weight: 650;
@@ -278,88 +310,28 @@
         }
 
         .hero-action:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.17);
+            border-color: rgba(255, 255, 255, 0.30);
             transform: translateY(-2px);
         }
 
-        /* Right portrait area */
-
-        .hero-photo {
-            position: absolute;
-            top: 64px;
-            right: 0;
-
-            width: 55%;
-            height: calc(100vh - 64px);
-            min-height: 640px;
-
-            overflow: hidden;
-        }
-
-        .hero-photo img {
-            width: 100%;
-            height: 100%;
-
-            display: block;
-            object-fit: cover;
-
-            /*
-               第一个百分比：控制照片左右裁切
-               数字变小：照片内容向右移动
-               数字变大：照片内容向左移动
-
-               第二个百分比：控制上下裁切
-               数字变小：显示照片更上方
-               数字变大：显示照片更下方
-            */
-            object-position: 48% 46%;
-        }
-
-        /* Gradient over the portrait */
-
-        .hero-photo::after {
-            content: "";
-
-            position: absolute;
-            inset: 0;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #08080c 0%,
-                    rgba(8, 8, 12, 0.64) 14%,
-                    rgba(8, 8, 12, 0.10) 45%,
-                    rgba(8, 8, 12, 0.02) 100%
-                ),
-                linear-gradient(
-                    0deg,
-                    #08080c 0%,
-                    rgba(8, 8, 12, 0.48) 16%,
-                    rgba(8, 8, 12, 0.04) 46%,
-                    rgba(8, 8, 12, 0.08) 100%
-                );
-
-            pointer-events: none;
-        }
-
         /* ========================================
-           4. Main Content
+           4. 主体内容区
         ======================================== */
 
         .main-area {
             width: 100%;
-            padding: 110px 0 120px;
+            padding: 105px 0 120px;
 
             background:
                 radial-gradient(
-                    circle at 85% 8%,
-                    rgba(220, 90, 184, 0.075),
+                    circle at 84% 8%,
+                    rgba(216, 91, 183, 0.08),
                     transparent 28%
                 ),
                 radial-gradient(
-                    circle at 10% 45%,
-                    rgba(70, 90, 140, 0.06),
+                    circle at 8% 48%,
+                    rgba(75, 95, 150, 0.06),
                     transparent 30%
                 ),
                 var(--bg-main);
@@ -393,8 +365,7 @@
 
             font-size: 23px;
             font-weight: 780;
-            letter-spacing: 0.25px;
-            text-transform: uppercase;
+            letter-spacing: 0.2px;
             white-space: nowrap;
         }
 
@@ -411,7 +382,7 @@
         }
 
         /* ========================================
-           5. Project Cards
+           5. 项目卡片
         ======================================== */
 
         .bento-grid {
@@ -442,7 +413,7 @@
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255, 255, 255, 0.025),
+                    rgba(255, 255, 255, 0.026),
                     rgba(255, 255, 255, 0)
                 ),
                 var(--bg-card);
@@ -466,7 +437,7 @@
             background:
                 linear-gradient(
                     145deg,
-                    rgba(220, 90, 184, 0.055),
+                    rgba(216, 91, 183, 0.058),
                     rgba(255, 255, 255, 0)
                 ),
                 var(--bg-card-hover);
@@ -475,7 +446,7 @@
 
             box-shadow:
                 0 28px 75px rgba(0, 0, 0, 0.48),
-                0 0 35px rgba(220, 90, 184, 0.08);
+                0 0 35px rgba(216, 91, 183, 0.08);
         }
 
         .featured-card {
@@ -502,7 +473,7 @@
 
             font-size: 11px;
             font-weight: 760;
-            letter-spacing: 1.6px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
@@ -510,14 +481,14 @@
             position: relative;
             z-index: 2;
 
-            max-width: 800px;
+            max-width: 820px;
             margin-bottom: 18px;
 
             color: #ffffff;
 
             font-size: clamp(1.45rem, 2.35vw, 2rem);
             font-weight: 710;
-            line-height: 1.26;
+            line-height: 1.28;
             letter-spacing: -0.02em;
         }
 
@@ -525,13 +496,13 @@
             position: relative;
             z-index: 2;
 
-            max-width: 850px;
+            max-width: 860px;
 
             color: var(--text-secondary);
 
             font-size: 14px;
             font-weight: 400;
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
         .card-action {
@@ -577,7 +548,7 @@
         }
 
         /* ========================================
-           6. Experience & Education
+           6. 工作经历与教育背景
         ======================================== */
 
         .info-card {
@@ -619,7 +590,7 @@
             padding-left: 19px;
             margin-bottom: 31px;
 
-            border-left: 2px solid rgba(220, 90, 184, 0.24);
+            border-left: 2px solid rgba(216, 91, 183, 0.25);
         }
 
         .info-item:last-child {
@@ -651,11 +622,11 @@
 
             font-size: 13px;
             font-weight: 400;
-            line-height: 1.72;
+            line-height: 1.75;
         }
 
         /* ========================================
-           7. Contact Section
+           7. 联系方式
         ======================================== */
 
         .contact-card {
@@ -666,7 +637,7 @@
             background:
                 radial-gradient(
                     circle at center,
-                    rgba(220, 90, 184, 0.10),
+                    rgba(216, 91, 183, 0.10),
                     transparent 48%
                 ),
                 var(--bg-card);
@@ -698,13 +669,13 @@
         }
 
         .contact-desc {
-            max-width: 600px;
+            max-width: 640px;
             margin: 20px auto 0;
 
             color: var(--text-secondary);
 
             font-size: 15px;
-            line-height: 1.75;
+            line-height: 1.8;
         }
 
         /* ========================================
@@ -723,23 +694,20 @@
         }
 
         /* ========================================
-           9. Tablet and Mobile
+           9. 平板和手机适配
         ======================================== */
 
         @media (max-width: 1000px) {
-            .hero-copy {
-                width: 59%;
-
-                padding-left: 34px;
-                padding-right: 36px;
+            .hero {
+                background-position: 68% 20%;
             }
 
-            .hero-photo {
-                width: 56%;
+            .hero-copy {
+                width: 60%;
             }
 
             .hero-heading {
-                font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+                font-size: clamp(2.2rem, 4.3vw, 3.6rem);
             }
         }
 
@@ -760,47 +728,29 @@
                 min-height: 100svh;
                 padding-top: 58px;
 
-                display: block;
-            }
+                align-items: flex-end;
 
-            .hero-photo {
-                top: 58px;
-
-                width: 100%;
-                height: calc(100svh - 58px);
-                min-height: 650px;
-            }
-
-            .hero-photo img {
-                object-position: 52% 35%;
-            }
-
-            .hero-photo::after {
-                background:
+                background-image:
                     linear-gradient(
                         0deg,
-                        #08080c 0%,
-                        rgba(8, 8, 12, 0.82) 32%,
-                        rgba(8, 8, 12, 0.12) 68%,
-                        rgba(8, 8, 12, 0.09) 100%
-                    );
+                        rgba(8, 8, 12, 0.97) 0%,
+                        rgba(8, 8, 12, 0.82) 31%,
+                        rgba(8, 8, 12, 0.18) 70%,
+                        rgba(8, 8, 12, 0.10) 100%
+                    ),
+                    url("./profile.jpg");
+
+                background-position: 54% 22%;
+            }
+
+            .hero-content {
+                width: calc(100% - 36px);
+                padding: 80px 0 62px;
             }
 
             .hero-copy {
-                position: relative;
-                z-index: 4;
-
                 width: 100%;
-                min-height: calc(100svh - 58px);
-
-                justify-content: flex-end;
-
-                padding:
-                    100px
-                    22px
-                    58px;
-
-                background: transparent;
+                max-width: none;
             }
 
             .hero-heading {
@@ -897,16 +847,16 @@
                 font-size: 12px;
             }
 
-            .hero-photo img {
-                object-position: 51% 31%;
+            .hero {
+                background-position: 55% 18%;
             }
 
             .hero-heading {
-                font-size: clamp(1.95rem, 8.8vw, 2.85rem);
+                font-size: clamp(1.92rem, 8.5vw, 2.85rem);
             }
 
             .hero-intro {
-                line-height: 1.65;
+                line-height: 1.7;
             }
 
             .section-header {
@@ -918,7 +868,7 @@
 
 <body>
 
-    <!-- Navigation -->
+    <!-- 顶部导航栏 -->
     <nav>
         <div class="nav-container">
 
@@ -927,64 +877,60 @@
             </div>
 
             <div class="nav-links">
-                <a href="#works">Works</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#works">作品</a>
+                <a href="#about">关于我</a>
+                <a href="#contact">联系</a>
             </div>
 
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- 首屏 -->
     <header class="hero">
 
-        <!-- Left copy -->
-        <div class="hero-copy">
+        <div class="hero-content">
 
-            <h1 class="hero-heading">
-                <span>University of Toronto</span>
-                <span>Master of Information</span>
-                <span>UX Designer</span>
-            </h1>
+            <div class="hero-copy">
 
-            <div class="hero-tags">
-                <span class="hero-tag">UX Research</span>
-                <span class="hero-tag">Interaction Design</span>
-                <span class="hero-tag">Service Design</span>
+                <h1 class="hero-heading">
+                    <span>University of Toronto</span>
+                    <span>Master of Information</span>
+                    <span>UX Designer</span>
+                </h1>
+
+                <div class="hero-tags">
+                    <span class="hero-tag">用户研究</span>
+                    <span class="hero-tag">交互设计</span>
+                    <span class="hero-tag">服务设计</span>
+                </div>
+
+                <p class="hero-intro">
+                    专注用户体验、数字产品与服务设计，
+                    擅长从用户研究、信息架构到高保真交互设计，
+                    通过设计思维与数据分析连接用户需求、组织目标与商业价值。
+                </p>
+
+                <a href="#works" class="hero-action">
+                    查看我的作品 ↓
+                </a>
+
             </div>
 
-            <p class="hero-intro">
-                I design research-driven digital experiences that connect
-                user needs, organizational goals, and meaningful business value.
-            </p>
-
-            <a href="#works" class="hero-action">
-                Explore My Work ↓
-            </a>
-
-        </div>
-
-        <!-- Right portrait -->
-        <div class="hero-photo">
-            <img
-                src="./profile.jpg"
-                alt="Yuanya Song at the University of Toronto"
-            >
         </div>
 
     </header>
 
-    <!-- Main content -->
+    <!-- 主体内容 -->
     <main class="main-area">
 
         <div class="content-width">
 
-            <!-- Featured Works -->
+            <!-- 精选作品 -->
             <section id="works" class="section">
 
                 <div class="section-header">
                     <h2 class="section-title">
-                        Featured Works
+                        精选作品
                     </h2>
 
                     <div class="section-line"></div>
@@ -992,7 +938,7 @@
 
                 <div class="bento-grid">
 
-                    <!-- Project 01 -->
+                    <!-- 项目 01 -->
                     <article class="bento-card featured-card size-12">
 
                         <span class="card-number">
@@ -1005,16 +951,15 @@
                             </div>
 
                             <h3 class="card-title">
-                                McMaster University Library —
-                                Instruction Toolkit
+                                麦克马斯特大学图书馆 —
+                                数字化教学工具平台
                             </h3>
 
                             <p class="card-desc">
-                                Designed a digital instructional resource platform
-                                for university librarians. The project covered user
-                                research, information architecture, interaction design,
-                                and high-fidelity prototyping to help librarians find,
-                                organize, and apply teaching resources more efficiently.
+                                面向高校图书馆馆员设计数字化教学资源平台。
+                                项目覆盖用户研究、信息架构、交互设计与高保真原型，
+                                通过梳理馆员的备课流程、资源使用习惯和信息检索需求，
+                                将分散的教学资源整合为连贯、易查找且便于使用的数字工具包。
                             </p>
                         </div>
 
@@ -1025,13 +970,13 @@
                                 rel="noopener noreferrer"
                                 class="btn-link"
                             >
-                                View Figma Prototype ↗
+                                查看 Figma 原型 ↗
                             </a>
                         </div>
 
                     </article>
 
-                    <!-- Project 02 -->
+                    <!-- 项目 02 -->
                     <article class="bento-card size-6">
 
                         <span class="card-number">
@@ -1044,15 +989,14 @@
                             </div>
 
                             <h3 class="card-title">
-                                BioRush Website Strategy & UX Design
+                                BioRush 官方网站零到一设计
                             </h3>
 
                             <p class="card-desc">
-                                Designed BioRush's website from the ground up for
-                                an early-stage forensic technology startup. The project
-                                included background research, information architecture,
-                                content strategy, trust-building communication, and
-                                high-fidelity interface design.
+                                为早期法医科技创业公司从零搭建官方网站。
+                                项目涵盖背景调研、目标受众分析、信息架构、
+                                内容策略、可信度表达和高保真界面设计，
+                                帮助投资人与行业从业者更清晰地理解产品价值。
                             </p>
                         </div>
 
@@ -1063,13 +1007,13 @@
                                 rel="noopener noreferrer"
                                 class="btn-link"
                             >
-                                View Figma Prototype ↗
+                                查看 Figma 原型 ↗
                             </a>
                         </div>
 
                     </article>
 
-                    <!-- Project 03 -->
+                    <!-- 项目 03 -->
                     <article class="bento-card size-6">
 
                         <span class="card-number">
@@ -1082,15 +1026,14 @@
                             </div>
 
                             <h3 class="card-title">
-                                Elections Ontario Internship Experience
+                                Elections Ontario 实习生全旅程服务设计
                             </h3>
 
                             <p class="card-desc">
-                                Mapped the end-to-end internship experience from
-                                discovering the organization and applying for roles
-                                to learning and professional growth. The project
-                                included journey mapping, service blueprinting,
-                                Search & Apply, and the EO Journal concept.
+                                系统梳理实习生从了解组织、搜索岗位、提交申请，
+                                到实习期间学习成长的完整体验。
+                                通过用户旅程和服务蓝图，设计 Search & Apply
+                                与 EO Journal 两套高保真数字化体验。
                             </p>
                         </div>
 
@@ -1119,12 +1062,12 @@
                 </div>
             </section>
 
-            <!-- Experience and Education -->
+            <!-- 工作经历与教育背景 -->
             <section id="about" class="section">
 
                 <div class="section-header">
                     <h2 class="section-title">
-                        Experience & Education
+                        工作经历与教育背景
                     </h2>
 
                     <div class="section-line"></div>
@@ -1134,16 +1077,16 @@
 
                     <div class="info-grid">
 
-                        <!-- Experience -->
+                        <!-- 工作经历 -->
                         <div>
 
                             <h3 class="info-column-title">
-                                Experience
+                                工作经历
                             </h3>
 
                             <div class="info-item">
                                 <div class="info-date">
-                                    JAN 2026 — APR 2026
+                                    2026.01 — 2026.04
                                 </div>
 
                                 <div class="info-role">
@@ -1152,15 +1095,15 @@
                                 </div>
 
                                 <div class="info-detail">
-                                    Designed a digital instructional toolkit
-                                    supporting librarians' teaching workflows,
-                                    resource discovery, and course preparation.
+                                    负责数字化教学工具平台的用户研究、
+                                    信息架构、交互方案与高保真原型设计，
+                                    支持馆员更高效地查找、组织和使用教学资源。
                                 </div>
                             </div>
 
                             <div class="info-item">
                                 <div class="info-date">
-                                    JAN 2026 — APR 2026
+                                    2026.01 — 2026.04
                                 </div>
 
                                 <div class="info-role">
@@ -1168,16 +1111,15 @@
                                 </div>
 
                                 <div class="info-detail">
-                                    Contributed to user research, information
-                                    architecture, content strategy, and
-                                    high-fidelity website design for an
-                                    early-stage startup.
+                                    参与用户与市场背景研究、网站信息架构、
+                                    内容策略和高保真界面设计，
+                                    支持早期科技公司建立清晰可信的数字品牌表达。
                                 </div>
                             </div>
 
                             <div class="info-item">
                                 <div class="info-date">
-                                    APR 2023 — MAY 2024
+                                    2023.04 — 2024.05
                                 </div>
 
                                 <div class="info-role">
@@ -1186,25 +1128,23 @@
                                 </div>
 
                                 <div class="info-detail">
-                                    Developed standardized reconciliation
-                                    templates and improved POS categorization
-                                    and data-entry processes to reduce
-                                    operational errors.
+                                    建立标准化对账模板，优化 POS 分类和数据录入流程，
+                                    提升财务核对效率并减少日常运营错误。
                                 </div>
                             </div>
 
                         </div>
 
-                        <!-- Education -->
+                        <!-- 教育背景 -->
                         <div>
 
                             <h3 class="info-column-title">
-                                Education
+                                教育背景
                             </h3>
 
                             <div class="info-item">
                                 <div class="info-date">
-                                    SEP 2024 — JUN 2026
+                                    2024.09 — 2026.06
                                 </div>
 
                                 <div class="info-role">
@@ -1219,7 +1159,7 @@
 
                             <div class="info-item">
                                 <div class="info-date">
-                                    SEP 2020 — APR 2024
+                                    2020.09 — 2024.04
                                 </div>
 
                                 <div class="info-role">
@@ -1239,7 +1179,7 @@
 
             </section>
 
-            <!-- Contact -->
+            <!-- 联系 -->
             <section id="contact" class="section">
 
                 <div class="contact-card">
@@ -1249,12 +1189,13 @@
                     </div>
 
                     <h2 class="contact-title">
-                        Let's Build Something Meaningful.
+                        期待创造真正有价值的产品体验。
                     </h2>
 
                     <p class="contact-desc">
-                        I am interested in UX design, product design,
-                        user research, and service design opportunities.
+                        目前关注用户体验设计、数字产品设计、
+                        用户研究与服务设计相关机会。
+                        欢迎通过邮箱、LinkedIn 或简历中的联系方式与我联系。
                     </p>
 
                 </div>
