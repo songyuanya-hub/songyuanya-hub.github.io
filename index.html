@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuanya Song | Product & UX Portfolio</title>
     <style>
-        /* 1. 全局样式与变量定义 */
+        /* 1. 全局配置 */
         :root {
+            --bg-dark: #07070a;
             --text-main: #ffffff;
-            --text-sub: rgba(255, 255, 255, 0.75);
-            --accent-purple: #c77dff; /* 提亮了紫色高光，使其在浅色玻璃上更精致 */
-            
-            /* 💡 重新设计的清透液态玻璃背景与边框 */
-            --glass-bg: rgba(255, 255, 255, 0.07); 
-            --glass-bg-hover: rgba(255, 255, 255, 0.14);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --glass-border-top: rgba(255, 255, 255, 0.35); /* 顶部高光折射边框 */
+            --text-sub: rgba(255, 255, 255, 0.65);
+            --accent-purple: #b5179e;
+            --accent-glow: #7209b7;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
 
         * {
@@ -27,281 +25,216 @@
         }
 
         body {
-            background-color: #08080c;
-            /* 💡 高清占位图，后续换成你的 GitHub 图片 Raw 链接即可 */
-            background-image: url('./profile.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
+            background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
         }
 
-        /* 轻量自然渐变遮罩：给照片叠加微弱的暗角，保护文字又保留照片通透度 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            background: radial-gradient(circle at center, rgba(8, 8, 12, 0.3) 0%, rgba(8, 8, 12, 0.75) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* 3. 极简悬浮玻璃导航栏 */
+        /* 2. 导航栏 */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            height: 60px;
-            background: rgba(10, 10, 16, 0.35);
+            top: 0; width: 100%; height: 60px;
+            background: rgba(7, 7, 10, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
             z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
         }
-
         .nav-container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 40px;
+            width: 100%; max-width: 1200px; padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        .nav-logo {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
+        .nav-logo { font-weight: 700; letter-spacing: 1px; font-size: 15px; }
         .nav-links a {
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 13px;
-            margin-left: 32px;
+            color: var(--text-sub); text-decoration: none; font-size: 13px; margin-left: 28px;
             transition: color 0.3s;
         }
+        .nav-links a:hover { color: #fff; }
 
-        .nav-links a:hover {
-            color: var(--text-main);
+        /* 3. 【参考图核心】Hero 海报首屏区域 (人像融合大图) */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 85vh; /* 占满首屏大半视角 */
+            min-height: 550px;
+            /* 💡 背景图片：这里放入你的 WechatIMG693.jpg，使用暗色遮罩过渡 */
+            background-image: 
+                linear-gradient(to bottom, rgba(7,7,10,0.3) 0%, rgba(7,7,10,0.8) 70%, var(--bg-dark) 100%),
+                linear-gradient(to right, rgba(7,7,10,0.85) 0%, rgba(7,7,10,0.2) 50%, rgba(7,7,10,0.85) 100%),
+                url('./profile.jpg'); /* 如果本地没照片，会自然退回黑色背景 */
+            background-size: cover;
+            background-position: center 20%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 60px;
         }
 
-        /* 4. 主体内容包裹层 */
-        .main-content {
-            position: relative;
-            z-index: 2;
+        .hero-content {
+            width: 100%; max-width: 1100px; padding: 0 20px;
+            text-align: left;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(181, 23, 158, 0.2);
+            border: 1px solid rgba(181, 23, 158, 0.5);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #f72585;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #ffffff 30%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-sub);
+            max-width: 650px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* 4. 作品集与内容主体（深色底，无背景干扰） */
+        .main-container {
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 20px 100px 20px;
+            padding: 40px 20px 100px 20px;
         }
 
-        /* 个人抬头信息 */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 100px;
-            animation: fadeIn 1s ease-out;
+        .section-header {
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-
-        .profile-title {
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #ffffff 40%, rgba(255,255,255,0.7) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
-        }
-
-        .profile-tagline {
-            font-size: 20px;
-            color: #ffffff;
-            font-weight: 400;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.6);
-        }
-
-        /* 5. 核心：便当盒网格布局 (McMaster 第一行，BioRush 与 EO 第二行) */
-        .works-section {
-            margin-bottom: 100px;
-        }
-
         .section-title {
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 48px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            border-left: 4px solid var(--accent-purple);
-            padding-left: 16px;
-            background: linear-gradient(180deg, #ffffff 40%, rgba(255,255,255,0.7) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        }
+        .section-line {
+            flex-grow: 1; height: 1px;
+            background: linear-gradient(90deg, var(--glass-border) 0%, transparent 100%);
         }
 
+        /* 5. 便当盒网格卡片 (对标小红书图2) */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 32px;
+            gap: 28px;
+            margin-bottom: 80px;
         }
 
-        /* 💡 核心：通透液态玻璃卡片 (Liquid Glass Card) */
         .bento-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(160%);
-            -webkit-backdrop-filter: blur(25px) saturate(160%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-top: 1px solid var(--glass-border-top); /* 模拟真实玻璃上沿受光折射 */
-            border-radius: 28px;
-            padding: 48px;
+            border-radius: 24px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            overflow: hidden;
         }
 
-        /* 呼吸灯发光特效 */
-        .bento-card.breathing-glow {
-            animation: pulseGlow 6s infinite ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            }
-            50% {
-                border-color: rgba(199, 125, 255, 0.4);
-                box-shadow: 0 0 35px rgba(199, 125, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        /* Card Hover 液态交互感 */
+        /* 卡片悬浮发光 */
         .bento-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            background: var(--glass-bg-hover);
-            border-color: rgba(199, 125, 255, 0.6);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(199, 125, 255, 0.2);
+            transform: translateY(-6px);
+            border-color: rgba(181, 23, 158, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(114, 9, 183, 0.2);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .size-6 { grid-column: span 6; }
         .size-12 { grid-column: span 12; }
+        .size-6 { grid-column: span 6; }
 
-        .card-tag {
+        .card-category {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-purple);
+            letter-spacing: 1.5px;
+            color: #f72585;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .card-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 16px;
+            color: #fff;
         }
 
         .card-desc {
             color: var(--text-sub);
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 14px;
+            line-height: 1.65;
             font-weight: 300;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
         }
 
-        .card-link {
-            margin-top: 40px;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
+        .card-action {
+            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: opacity 0.3s, transform 0.3s;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .card-link:hover {
-            opacity: 0.9;
-            color: var(--accent-purple);
-            transform: translateX(4px);
+        .btn-link:hover {
+            background: #ffffff;
+            color: #000;
         }
 
-        /* 6. 工作经历与教育背景模块 (同样通透玻璃化) */
-        .info-section {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(160%);
-            -webkit-backdrop-filter: blur(25px) saturate(160%);
+        /* 6. Resume 信息块 */
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
-            border-top: 1px solid var(--glass-border-top);
-            border-radius: 28px;
-            padding: 60px;
-            margin-top: 80px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-            animation: fadeIn 1s ease-out 0.5s both;
+            border-radius: 24px;
+            padding: 48px;
         }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .info-h3 { font-size: 18px; font-weight: 600; margin-bottom: 24px; color: #fff; }
+        .info-item { margin-bottom: 24px; }
+        .info-date { font-size: 12px; color: #f72585; font-weight: 600; margin-bottom: 4px; }
+        .info-role { font-size: 15px; font-weight: 600; color: #fff; }
+        .info-detail { font-size: 13px; color: var(--text-sub); margin-top: 4px; line-height: 1.5; }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-        }
-
-        .info-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 32px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }
-
-        .info-item {
-            margin-bottom: 32px;
-        }
-
-        .info-meta {
-            font-size: 12px;
-            color: var(--accent-purple);
-            font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .info-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .info-sub {
-            font-size: 14px;
-            color: var(--text-sub);
-            line-height: 1.6;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 移动端自适应 */
         @media (max-width: 900px) {
-            body { background-attachment: scroll; }
-            .profile-header { margin-bottom: 60px; }
-            .main-content { padding-top: 80px; }
-            .bento-grid { gap: 24px; }
-            .size-6, .size-12 { grid-column: span 12; }
-            .info-section { padding: 40px; }
-            .info-grid { grid-template-columns: 1fr; gap: 40px; }
+            .size-6 { grid-column: span 12; }
+            .info-grid { grid-template-columns: 1fr; }
+            .hero-banner { height: 70vh; }
         }
     </style>
 </head>
@@ -309,7 +242,7 @@
 
     <nav>
         <div class="nav-container">
-            <div class="nav-logo">Yuanya Song</div>
+            <div class="nav-logo">YUANYA SONG</div>
             <div class="nav-links">
                 <a href="#works">Works</a>
                 <a href="#about">About</a>
@@ -317,101 +250,107 @@
         </div>
     </nav>
 
-    <section class="hero-section">
-        
-        <div class="main-content">
-            
-            <div class="profile-header">
-                <h1 class="profile-title">Yuanya Song</h1>
-                <p class="profile-tagline">Product Manager / UX Designer · 坚持长期主义，用数据与交互连接业务价值</p>
-            </div>
-
-            <div id="works" class="works-section">
-                <h2 class="section-title">精选作品集 / Featured Works</h2>
-                
-                <div class="bento-grid">
-                    
-                    <div class="bento-card size-12 breathing-glow">
-                        <div>
-                            <div class="card-tag">Institutional Digital Platform</div>
-                            <h3 class="card-title">麦克马斯特大学图书馆 - 数字化教学工具平台 (Instruction Toolkit)</h3>
-                            <p class="card-desc">围绕高校图书馆教学资源的检索与管理场景开展全链路体验重构。通过对馆员与学生的定性访谈梳理核心痛点，重新规划信息架构与核心使用路径，将分散资源整合为连贯的数字化工具包，高效承载备课与课程支持流程。</p>
-                        </div>
-                        <div>
-                            <a href="https://www.figma.com/proto/VJhE89s26cLahHur9yf1pm/Instruction-Toolkit" target="_blank" class="card-link">View Figma Prototype ↗</a>
-                        </div>
-                    </div>
-
-                    <div class="bento-card size-6">
-                        <div>
-                            <div class="card-tag">0-to-1 Startup Project</div>
-                            <h3 class="card-title">BioRush 官方网站零到一战略设计</h3>
-                            <p class="card-desc">针对法医取证 AI 技术早期阶段开展背景调研，锁定投资人与行业从业者。与创始人深度协同，规划完整信息架构与内容策略，完成高保真界面设计。</p>
-                        </div>
-                        <div>
-                            <a href="https://www.figma.com/proto/tuwSDeiyWfKcPLuEmc7ZXA/BioRush" target="_blank" class="card-link">View Figma Prototype ↗</a>
-                        </div>
-                    </div>
-
-                    <div class="bento-card size-6 breathing-glow">
-                        <div>
-                            <div class="card-tag">Service Design Project</div>
-                            <h3 class="card-title">Elections Ontario 实习生全旅程服务设计</h3>
-                            <p class="card-desc">系统性映射实习生全生命周期服务体验。依托服务蓝图与用户旅程，规划设计了 Search & Apply 体验和内部 EO Journal 系统两大高保真服务生态。</p>
-                        </div>
-                        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                            <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="card-link" style="margin-top: 0;">Search & Apply ↗</a>
-                            <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="card-link" style="margin-top: 0;">EO Journal ↗</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="about" class="info-section">
-                
-                <div class="info-grid">
-                    
-                    <div>
-                        <h3 class="info-title">工作经验 / Experience</h3>
-                        <div class="info-item">
-                            <div class="info-meta">2026.01 - PRESENT</div>
-                            <div class="info-name">数字工具包设计师 | 麦克马斯特大学图书馆</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-meta">2026.01 - PRESENT</div>
-                            <div class="info-name">界面设计师 | BioRush</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-meta">2023.04 - 2024.05</div>
-                            <div class="info-name">流程与数据分析师 | Hinterbrook 酒庄</div>
-                            <div class="info-sub">· 建立标准对账模板，提高账务准确率与对接效率<br>· 优化 POS 收银系统分类逻辑与录入规则，降低出错率</div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="info-title">教育背景 / Education</h3>
-                        <div class="info-item">
-                            <div class="info-meta">2024.09 - 2026.06</div>
-                            <div class="info-name">多伦多大学 (University of Toronto)</div>
-                            <div class="info-sub">信息学硕士 - 用户体验设计方向 | GPA 3.8 / 4.0</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-meta">2020.05 - 2024.04</div>
-                            <div class="info-name">布鲁克大学 (Brock University)</div>
-                            <div class="info-sub">工商管理学士 - 会计方向 | GPA 3.7 / 4.0 (Brock Scholars Award CAD 16,000)</div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
+    <div class="hero-banner">
+        <div class="hero-content">
+            <span class="hero-tag">PRODUCT MANAGER & UX DESIGNER</span>
+            <h1 class="hero-title">Yuanya Song</h1>
+            <p class="hero-subtitle">多伦多大学信息学硕士（UX方向）。坚持长期主义，用数据分析与服务蓝图连接用户体验与商业价值。</p>
         </div>
-    </section>
+    </div>
 
-    <footer style="text-align: center; padding: 48px 20px; color: var(--text-sub); font-size: 13px; border-top: 1px solid var(--glass-border); background-color: rgba(8, 8, 12, 0.85);">
-        © 2026 Yuanya Song. All Rights Reserved. Designed for PM & UX Positions.
+    <div class="main-container">
+
+        <div id="works" style="margin-bottom: 60px;">
+            <div class="section-header">
+                <h2 class="section-title">Featured Works</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="bento-grid">
+
+                <div class="bento-card size-12">
+                    <div>
+                        <div class="card-category">Institutional Digital Platform</div>
+                        <h3 class="card-title">麦克马斯特大学图书馆 - 数字化教学工具平台</h3>
+                        <p class="card-desc">围绕高校图书馆教学资源的检索与管理场景开展全链路体验重构。通过定性访谈梳理核心痛点，重新规划信息架构与使用路径，将分散资源整合为连贯的数字化工具包，高效承载备课与课程支持流程。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://www.figma.com/proto/VJhE89s26cLahHur9yf1pm/Instruction-Toolkit" target="_blank" class="btn-link">View Figma Prototype ↗</a>
+                    </div>
+                </div>
+
+                <div class="bento-card size-6">
+                    <div>
+                        <div class="card-category">0-to-1 Startup Project</div>
+                        <h3 class="card-title">BioRush 官方网站零到一战略设计</h3>
+                        <p class="card-desc">针对法医取证 AI 技术早期阶段开展背景调研，锁定投资人与行业从业者。与创始人深度协同，规划完整信息架构与内容策略，完成高保真界面设计。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://www.figma.com/proto/tuwSDeiyWfKcPLuEmc7ZXA/BioRush" target="_blank" class="card-link btn-link">View Figma Prototype ↗</a>
+                    </div>
+                </div>
+
+                <div class="bento-card size-6">
+                    <div>
+                        <div class="card-category">Service Design Project</div>
+                        <h3 class="card-title">Elections Ontario 实习生全旅程服务设计</h3>
+                        <p class="card-desc">系统性映射实习生全生命周期服务体验。依托服务蓝图与用户旅程，规划设计了 Search & Apply 体验和内部 EO Journal 系统两大高保真服务生态。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="btn-link">Search & Apply ↗</a>
+                        <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="btn-link">EO Journal ↗</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="about">
+            <div class="section-header">
+                <h2 class="section-title">Experience & Education</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-grid">
+                    <div>
+                        <h3 class="info-h3">工作经验 / Experience</h3>
+                        <div class="info-item">
+                            <div class="info-date">2026.01 - PRESENT</div>
+                            <div class="info-role">数字工具包设计师 | 麦克马斯特大学图书馆</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-date">2026.01 - PRESENT</div>
+                            <div class="info-role">界面设计师 | BioRush</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-date">2023.04 - 2024.05</div>
+                            <div class="info-role">流程与数据分析师 | Hinterbrook 酒庄</div>
+                            <div class="info-detail">· 建立标准对账模板，提高账务准确率与对接效率<br>· 优化 POS 收银系统分类逻辑与录入规则，降低出错率</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="info-h3">教育背景 / Education</h3>
+                        <div class="info-item">
+                            <div class="info-date">2024.09 - 2026.06</div>
+                            <div class="info-role">多伦多大学 (University of Toronto)</div>
+                            <div class="info-detail">信息学硕士 - 用户体验设计方向 | GPA 3.8 / 4.0</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-date">2020.05 - 2024.04</div>
+                            <div class="info-role">布鲁克大学 (Brock University)</div>
+                            <div class="info-detail">工商管理学士 - 会计方向 | GPA 3.7 / 4.0 (Brock Scholars Award CAD 16,000)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="text-align: center; padding: 40px; color: var(--text-sub); font-size: 12px; border-top: 1px solid var(--glass-border);">
+        © 2026 Yuanya Song. All Rights Reserved.
     </footer>
 
 </body>
