@@ -2,247 +2,698 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuanya Song | Product & UX Portfolio</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Yuanya Song — UX Designer and Master of Information graduate from the University of Toronto."
+    >
+
+    <title>Yuanya Song | UX Designer Portfolio</title>
+
     <style>
-        /* 1. 全局配置 */
+        /* ==============================
+           1. 全局设置
+        ============================== */
+
         :root {
-            --bg-dark: #07070a;
-            --text-main: #ffffff;
-            --text-sub: rgba(255, 255, 255, 0.65);
-            --accent-purple: #b5179e;
-            --accent-glow: #7209b7;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --page-bg: #f1f1ef;
+            --card-bg: #ffffff;
+
+            --text-main: #171719;
+            --text-sub: #68686d;
+
+            --hero-text: #ffffff;
+            --hero-text-sub: rgba(255, 255, 255, 0.82);
+
+            --accent: #b5179e;
+            --accent-bright: #f72585;
+
+            --light-border: rgba(20, 20, 25, 0.10);
+            --dark-border: rgba(255, 255, 255, 0.16);
+
+            --content-width: 1120px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background: var(--page-bg);
             color: var(--text-main);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* 2. 导航栏 */
+        a {
+            color: inherit;
+        }
+
+        /* ==============================
+           2. 导航栏
+        ============================== */
+
         nav {
             position: fixed;
-            top: 0; width: 100%; height: 60px;
-            background: rgba(7, 7, 10, 0.6);
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(9, 9, 12, 0.52);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .nav-container {
-            width: 100%; max-width: 1200px; padding: 0 40px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .nav-logo { font-weight: 700; letter-spacing: 1px; font-size: 15px; }
-        .nav-links a {
-            color: var(--text-sub); text-decoration: none; font-size: 13px; margin-left: 28px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: #fff; }
 
-        /* 3. 【参考图核心】Hero 海报首屏区域 (人像融合大图) */
+            z-index: 1000;
+        }
+
+        .nav-container {
+            width: calc(100% - 48px);
+            max-width: 1200px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 750;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.74);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* ==============================
+           3. 首屏照片 Hero
+        ============================== */
+
         .hero-banner {
             position: relative;
+
             width: 100%;
-            height: 85vh; /* 占满首屏大半视角 */
-            min-height: 550px;
-            /* 💡 背景图片：这里放入你的 WechatIMG693.jpg，使用暗色遮罩过渡 */
-            background-image: 
-                linear-gradient(to bottom, rgba(7,7,10,0.3) 0%, rgba(7,7,10,0.8) 70%, var(--bg-dark) 100%),
-                linear-gradient(to right, rgba(7,7,10,0.85) 0%, rgba(7,7,10,0.2) 50%, rgba(7,7,10,0.85) 100%),
-                url('./profile.jpg'); /* 如果本地没照片，会自然退回黑色背景 */
-            background-size: cover;
-            background-position: center 20%;
+            height: 100vh;
+            min-height: 680px;
+
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
-            padding-bottom: 60px;
+
+            background-image:
+                linear-gradient(
+                    to bottom,
+                    rgba(7, 7, 10, 0.14) 0%,
+                    rgba(7, 7, 10, 0.18) 45%,
+                    rgba(7, 7, 10, 0.76) 100%
+                ),
+                linear-gradient(
+                    to right,
+                    rgba(7, 7, 10, 0.76) 0%,
+                    rgba(7, 7, 10, 0.34) 38%,
+                    rgba(7, 7, 10, 0.08) 68%,
+                    rgba(7, 7, 10, 0.20) 100%
+                ),
+                url("./profile.jpg");
+
+            background-size: cover;
+            background-position: center 32%;
+            background-repeat: no-repeat;
         }
 
         .hero-content {
-            width: 100%; max-width: 1100px; padding: 0 20px;
-            text-align: left;
+            position: relative;
+            z-index: 2;
+
+            width: calc(100% - 48px);
+            max-width: var(--content-width);
+
+            padding-top: 90px;
+        }
+
+        .hero-heading {
+            max-width: 690px;
+
+            color: var(--hero-text);
+
+            font-size: clamp(3.1rem, 6.3vw, 6.3rem);
+            font-weight: 800;
+            line-height: 0.94;
+            letter-spacing: -0.055em;
+
+            text-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        .hero-heading span {
+            display: block;
+        }
+
+        .hero-heading .line-two {
+            margin-top: 10px;
+        }
+
+        .hero-heading .line-three {
+            margin-top: 10px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 30px;
         }
 
         .hero-tag {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(181, 23, 158, 0.2);
-            border: 1px solid rgba(181, 23, 158, 0.5);
-            border-radius: 20px;
-            font-size: 12px;
-            color: #f72585;
-            font-weight: 600;
-            margin-bottom: 16px;
-            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+
+            padding: 8px 13px;
+
+            color: #ffffff;
+            background: rgba(10, 10, 14, 0.34);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 999px;
+
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+
+            font-size: 11px;
+            font-weight: 650;
+            letter-spacing: 0.4px;
         }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-            background: linear-gradient(180deg, #ffffff 30%, rgba(255,255,255,0.7) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero-intro {
+            max-width: 610px;
+            margin-top: 24px;
+
+            color: var(--hero-text-sub);
+
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.7;
+
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.30);
         }
 
-        .hero-subtitle {
-            font-size: 18px;
-            color: var(--text-sub);
-            max-width: 650px;
-            line-height: 1.6;
-            font-weight: 300;
+        .hero-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-top: 34px;
+            padding: 13px 19px;
+
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            border-radius: 999px;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            font-size: 13px;
+            font-weight: 650;
+            text-decoration: none;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
         }
 
-        /* 4. 作品集与内容主体（深色底，无背景干扰） */
-        .main-container {
+        .hero-action:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .hero-fade {
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+
             width: 100%;
-            max-width: 1100px;
+            height: 160px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(241, 241, 239, 0) 0%,
+                    var(--page-bg) 100%
+                );
+
+            pointer-events: none;
+        }
+
+        /* ==============================
+           4. 浅灰色内容区
+        ============================== */
+
+        .main-area {
+            width: 100%;
+            background: var(--page-bg);
+            padding: 90px 0 120px;
+        }
+
+        .content-width {
+            width: calc(100% - 48px);
+            max-width: var(--content-width);
             margin: 0 auto;
-            padding: 40px 20px 100px 20px;
+        }
+
+        .section {
+            margin-bottom: 100px;
+            scroll-margin-top: 90px;
         }
 
         .section-header {
-            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .section-line {
-            flex-grow: 1; height: 1px;
-            background: linear-gradient(90deg, var(--glass-border) 0%, transparent 100%);
+            gap: 16px;
+
+            margin-bottom: 42px;
         }
 
-        /* 5. 便当盒网格卡片 (对标小红书图2) */
+        .section-title {
+            color: var(--text-main);
+
+            font-size: 23px;
+            font-weight: 780;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(20, 20, 25, 0.20) 0%,
+                    rgba(20, 20, 25, 0) 100%
+                );
+        }
+
+        /* ==============================
+           5. 项目卡片
+        ============================== */
+
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 28px;
-            margin-bottom: 80px;
+        }
+
+        .size-12 {
+            grid-column: span 12;
+        }
+
+        .size-6 {
+            grid-column: span 6;
         }
 
         .bento-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
+            position: relative;
+            overflow: hidden;
+
+            min-height: 350px;
+            padding: 42px;
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+
+            background: var(--card-bg);
+            border: 1px solid var(--light-border);
+            border-radius: 26px;
+
+            box-shadow:
+                0 12px 38px rgba(20, 20, 25, 0.055);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
         }
 
-        /* 卡片悬浮发光 */
         .bento-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(181, 23, 158, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(114, 9, 183, 0.2);
-            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-7px);
+
+            border-color: rgba(181, 23, 158, 0.25);
+
+            box-shadow:
+                0 24px 65px rgba(20, 20, 25, 0.11),
+                0 0 0 1px rgba(181, 23, 158, 0.04);
         }
 
-        .size-12 { grid-column: span 12; }
-        .size-6 { grid-column: span 6; }
+        .featured-card {
+            min-height: 370px;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+
+            color: rgba(20, 20, 25, 0.06);
+
+            font-size: 82px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.06em;
+        }
 
         .card-category {
+            margin-bottom: 14px;
+
+            color: var(--accent);
+
             font-size: 11px;
+            font-weight: 760;
+            letter-spacing: 1.6px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #f72585;
-            font-weight: 700;
-            margin-bottom: 12px;
         }
 
         .card-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #fff;
+            max-width: 800px;
+            margin-bottom: 18px;
+
+            color: var(--text-main);
+
+            font-size: clamp(1.45rem, 2.4vw, 2rem);
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
         }
 
         .card-desc {
+            max-width: 850px;
+
             color: var(--text-sub);
+
             font-size: 14px;
-            line-height: 1.65;
-            font-weight: 300;
+            font-weight: 400;
+            line-height: 1.8;
         }
 
         .card-action {
-            margin-top: 32px;
             display: flex;
-            gap: 16px;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-top: 34px;
         }
 
         .btn-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
+            justify-content: center;
+            gap: 7px;
+
+            padding: 11px 18px;
+
+            color: var(--text-main);
+            background: #f3f3f1;
+            border: 1px solid rgba(20, 20, 25, 0.12);
             border-radius: 12px;
-            color: #fff;
+
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 680;
             text-decoration: none;
-            transition: all 0.3s;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                color 0.25s ease,
+                border-color 0.25s ease;
         }
 
         .btn-link:hover {
-            background: #ffffff;
-            color: #000;
+            color: #ffffff;
+            background: #171719;
+            border-color: #171719;
+            transform: translateY(-2px);
         }
 
-        /* 6. Resume 信息块 */
+        /* ==============================
+           6. Experience & Education
+        ============================== */
+
         .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 48px;
+            padding: 50px;
+
+            background: var(--card-bg);
+            border: 1px solid var(--light-border);
+            border-radius: 26px;
+
+            box-shadow:
+                0 12px 38px rgba(20, 20, 25, 0.055);
         }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-        .info-h3 { font-size: 18px; font-weight: 600; margin-bottom: 24px; color: #fff; }
-        .info-item { margin-bottom: 24px; }
-        .info-date { font-size: 12px; color: #f72585; font-weight: 600; margin-bottom: 4px; }
-        .info-role { font-size: 15px; font-weight: 600; color: #fff; }
-        .info-detail { font-size: 13px; color: var(--text-sub); margin-top: 4px; line-height: 1.5; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+        }
+
+        .info-column-title {
+            margin-bottom: 30px;
+
+            color: var(--text-main);
+
+            font-size: 19px;
+            font-weight: 730;
+        }
+
+        .info-item {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 30px;
+
+            border-left: 2px solid rgba(181, 23, 158, 0.20);
+        }
+
+        .info-date {
+            margin-bottom: 6px;
+
+            color: var(--accent);
+
+            font-size: 11px;
+            font-weight: 730;
+            letter-spacing: 0.6px;
+        }
+
+        .info-role {
+            color: var(--text-main);
+
+            font-size: 15px;
+            font-weight: 680;
+            line-height: 1.5;
+        }
+
+        .info-detail {
+            margin-top: 7px;
+
+            color: var(--text-sub);
+
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        /* ==============================
+           7. Footer
+        ============================== */
+
+        footer {
+            padding: 42px 24px;
+
+            color: #77777c;
+            background: var(--page-bg);
+            border-top: 1px solid rgba(20, 20, 25, 0.09);
+
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* ==============================
+           8. 移动端
+        ============================== */
 
         @media (max-width: 900px) {
-            .size-6 { grid-column: span 12; }
-            .info-grid { grid-template-columns: 1fr; }
-            .hero-banner { height: 70vh; }
+            nav {
+                height: 58px;
+            }
+
+            .nav-container {
+                width: calc(100% - 32px);
+            }
+
+            .nav-links {
+                gap: 18px;
+            }
+
+            .hero-banner {
+                height: 100svh;
+                min-height: 660px;
+
+                background-position: center 25%;
+            }
+
+            .hero-content {
+                width: calc(100% - 36px);
+                padding-top: 70px;
+            }
+
+            .hero-heading {
+                font-size: clamp(2.7rem, 13vw, 4.3rem);
+                line-height: 0.98;
+            }
+
+            .hero-intro {
+                max-width: 94%;
+                font-size: 15px;
+            }
+
+            .hero-tags {
+                gap: 8px;
+            }
+
+            .hero-tag {
+                font-size: 10px;
+                padding: 7px 11px;
+            }
+
+            .main-area {
+                padding-top: 70px;
+            }
+
+            .content-width {
+                width: calc(100% - 32px);
+            }
+
+            .section {
+                margin-bottom: 74px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            .size-6,
+            .size-12 {
+                grid-column: span 12;
+            }
+
+            .bento-grid {
+                gap: 20px;
+            }
+
+            .bento-card {
+                min-height: auto;
+                padding: 28px;
+                border-radius: 22px;
+            }
+
+            .card-number {
+                top: 22px;
+                right: 24px;
+                font-size: 64px;
+            }
+
+            .card-title {
+                font-size: 1.45rem;
+            }
+
+            .info-card {
+                padding: 30px;
+                border-radius: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .nav-logo {
+                font-size: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero-banner {
+                background-position: 56% 24%;
+            }
+
+            .hero-heading {
+                font-size: clamp(2.5rem, 12vw, 3.7rem);
+            }
+
+            .hero-intro {
+                font-size: 14px;
+            }
+
+            .section-header {
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
+
 <body>
 
+    <!-- 顶部导航 -->
     <nav>
         <div class="nav-container">
-            <div class="nav-logo">YUANYA SONG</div>
+            <div class="nav-logo">Yuanya Song</div>
+
             <div class="nav-links">
                 <a href="#works">Works</a>
                 <a href="#about">About</a>
@@ -250,106 +701,284 @@
         </div>
     </nav>
 
-    <div class="hero-banner">
+    <!-- 第一屏：个人照片 -->
+    <header class="hero-banner">
         <div class="hero-content">
-            <span class="hero-tag">PRODUCT MANAGER & UX DESIGNER</span>
-            <h1 class="hero-title">Yuanya Song</h1>
-            <p class="hero-subtitle">多伦多大学信息学硕士（UX方向）。坚持长期主义，用数据分析与服务蓝图连接用户体验与商业价值。</p>
-        </div>
-    </div>
 
-    <div class="main-container">
+            <h1 class="hero-heading">
+                <span>University of Toronto</span>
+                <span class="line-two">Master of Information</span>
+                <span class="line-three">UX Designer</span>
+            </h1>
 
-        <div id="works" style="margin-bottom: 60px;">
-            <div class="section-header">
-                <h2 class="section-title">Featured Works</h2>
-                <div class="section-line"></div>
+            <div class="hero-tags">
+                <span class="hero-tag">UX Research</span>
+                <span class="hero-tag">Interaction Design</span>
+                <span class="hero-tag">Service Design</span>
             </div>
 
-            <div class="bento-grid">
+            <p class="hero-intro">
+                I design research-driven digital experiences that connect
+                user needs, organizational goals, and meaningful business value.
+            </p>
 
-                <div class="bento-card size-12">
-                    <div>
-                        <div class="card-category">Institutional Digital Platform</div>
-                        <h3 class="card-title">麦克马斯特大学图书馆 - 数字化教学工具平台</h3>
-                        <p class="card-desc">围绕高校图书馆教学资源的检索与管理场景开展全链路体验重构。通过定性访谈梳理核心痛点，重新规划信息架构与使用路径，将分散资源整合为连贯的数字化工具包，高效承载备课与课程支持流程。</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="https://www.figma.com/proto/VJhE89s26cLahHur9yf1pm/Instruction-Toolkit" target="_blank" class="btn-link">View Figma Prototype ↗</a>
-                    </div>
-                </div>
+            <a href="#works" class="hero-action">
+                Explore My Work ↓
+            </a>
 
-                <div class="bento-card size-6">
-                    <div>
-                        <div class="card-category">0-to-1 Startup Project</div>
-                        <h3 class="card-title">BioRush 官方网站零到一战略设计</h3>
-                        <p class="card-desc">针对法医取证 AI 技术早期阶段开展背景调研，锁定投资人与行业从业者。与创始人深度协同，规划完整信息架构与内容策略，完成高保真界面设计。</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="https://www.figma.com/proto/tuwSDeiyWfKcPLuEmc7ZXA/BioRush" target="_blank" class="card-link btn-link">View Figma Prototype ↗</a>
-                    </div>
-                </div>
-
-                <div class="bento-card size-6">
-                    <div>
-                        <div class="card-category">Service Design Project</div>
-                        <h3 class="card-title">Elections Ontario 实习生全旅程服务设计</h3>
-                        <p class="card-desc">系统性映射实习生全生命周期服务体验。依托服务蓝图与用户旅程，规划设计了 Search & Apply 体验和内部 EO Journal 系统两大高保真服务生态。</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="btn-link">Search & Apply ↗</a>
-                        <a href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A" target="_blank" class="btn-link">EO Journal ↗</a>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
-        <div id="about">
-            <div class="section-header">
-                <h2 class="section-title">Experience & Education</h2>
-                <div class="section-line"></div>
-            </div>
+        <div class="hero-fade"></div>
+    </header>
 
-            <div class="info-card">
-                <div class="info-grid">
-                    <div>
-                        <h3 class="info-h3">工作经验 / Experience</h3>
-                        <div class="info-item">
-                            <div class="info-date">2026.01 - PRESENT</div>
-                            <div class="info-role">数字工具包设计师 | 麦克马斯特大学图书馆</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-date">2026.01 - PRESENT</div>
-                            <div class="info-role">界面设计师 | BioRush</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-date">2023.04 - 2024.05</div>
-                            <div class="info-role">流程与数据分析师 | Hinterbrook 酒庄</div>
-                            <div class="info-detail">· 建立标准对账模板，提高账务准确率与对接效率<br>· 优化 POS 收银系统分类逻辑与录入规则，降低出错率</div>
-                        </div>
-                    </div>
+    <!-- 浅灰色作品集区域 -->
+    <main class="main-area">
 
-                    <div>
-                        <h3 class="info-h3">教育背景 / Education</h3>
-                        <div class="info-item">
-                            <div class="info-date">2024.09 - 2026.06</div>
-                            <div class="info-role">多伦多大学 (University of Toronto)</div>
-                            <div class="info-detail">信息学硕士 - 用户体验设计方向 | GPA 3.8 / 4.0</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-date">2020.05 - 2024.04</div>
-                            <div class="info-role">布鲁克大学 (Brock University)</div>
-                            <div class="info-detail">工商管理学士 - 会计方向 | GPA 3.7 / 4.0 (Brock Scholars Award CAD 16,000)</div>
-                        </div>
-                    </div>
+        <div class="content-width">
+
+            <!-- Featured Works -->
+            <section id="works" class="section">
+
+                <div class="section-header">
+                    <h2 class="section-title">Featured Works</h2>
+                    <div class="section-line"></div>
                 </div>
-            </div>
+
+                <div class="bento-grid">
+
+                    <!-- McMaster -->
+                    <article class="bento-card featured-card size-12">
+                        <span class="card-number">01</span>
+
+                        <div>
+                            <div class="card-category">
+                                Institutional Digital Platform
+                            </div>
+
+                            <h3 class="card-title">
+                                McMaster University Library —
+                                Instruction Toolkit
+                            </h3>
+
+                            <p class="card-desc">
+                                Designed a digital instructional resource platform
+                                for university librarians. The project covered user
+                                research, information architecture, interaction design,
+                                and high-fidelity prototyping to help librarians find,
+                                organize, and apply teaching resources more efficiently.
+                            </p>
+                        </div>
+
+                        <div class="card-action">
+                            <a
+                                href="https://www.figma.com/proto/VJhE89s26cLahHur9yf1pm/Instruction-Toolkit"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-link"
+                            >
+                                View Figma Prototype ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- BioRush -->
+                    <article class="bento-card size-6">
+                        <span class="card-number">02</span>
+
+                        <div>
+                            <div class="card-category">
+                                0-to-1 Startup Project
+                            </div>
+
+                            <h3 class="card-title">
+                                BioRush Website Strategy & UX Design
+                            </h3>
+
+                            <p class="card-desc">
+                                Designed BioRush's website from the ground up for
+                                an early-stage forensic technology startup. The project
+                                included background research, information architecture,
+                                content strategy, trust-building communication, and
+                                high-fidelity interface design.
+                            </p>
+                        </div>
+
+                        <div class="card-action">
+                            <a
+                                href="https://www.figma.com/proto/tuwSDeiyWfKcPLuEmc7ZXA/BioRush"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-link"
+                            >
+                                View Figma Prototype ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Elections Ontario -->
+                    <article class="bento-card size-6">
+                        <span class="card-number">03</span>
+
+                        <div>
+                            <div class="card-category">
+                                Service Design Project
+                            </div>
+
+                            <h3 class="card-title">
+                                Elections Ontario Internship Experience
+                            </h3>
+
+                            <p class="card-desc">
+                                Mapped the end-to-end internship experience from
+                                discovering the organization and applying for roles
+                                to learning and professional growth. The project
+                                included journey mapping, service blueprinting,
+                                Search & Apply, and the EO Journal concept.
+                            </p>
+                        </div>
+
+                        <div class="card-action">
+                            <a
+                                href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-link"
+                            >
+                                Search & Apply ↗
+                            </a>
+
+                            <a
+                                href="https://www.figma.com/proto/sxyphTxPjIFkNh6GObslQI/Ideation-and-Prototype--A"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-link"
+                            >
+                                EO Journal ↗
+                            </a>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Experience & Education -->
+            <section id="about" class="section">
+
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Experience & Education
+                    </h2>
+
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="info-card">
+
+                    <div class="info-grid">
+
+                        <!-- Experience -->
+                        <div>
+                            <h3 class="info-column-title">
+                                Experience
+                            </h3>
+
+                            <div class="info-item">
+                                <div class="info-date">
+                                    JAN 2026 — APR 2026
+                                </div>
+
+                                <div class="info-role">
+                                    UX Designer |
+                                    McMaster University Library
+                                </div>
+
+                                <div class="info-detail">
+                                    Designed a digital instructional toolkit
+                                    supporting librarians' teaching workflows,
+                                    resource discovery, and course preparation.
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-date">
+                                    JAN 2026 — APR 2026
+                                </div>
+
+                                <div class="info-role">
+                                    UX Designer | BioRush
+                                </div>
+
+                                <div class="info-detail">
+                                    Contributed to user research, information
+                                    architecture, content strategy, and high-fidelity
+                                    website design for an early-stage startup.
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-date">
+                                    APR 2023 — MAY 2024
+                                </div>
+
+                                <div class="info-role">
+                                    Accounting & Operations |
+                                    Hinterbrook Estate Winery
+                                </div>
+
+                                <div class="info-detail">
+                                    Developed standardized reconciliation templates
+                                    and improved POS categorization and data-entry
+                                    processes to reduce operational errors.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education -->
+                        <div>
+                            <h3 class="info-column-title">
+                                Education
+                            </h3>
+
+                            <div class="info-item">
+                                <div class="info-date">
+                                    SEP 2024 — JUN 2026
+                                </div>
+
+                                <div class="info-role">
+                                    University of Toronto
+                                </div>
+
+                                <div class="info-detail">
+                                    Master of Information —
+                                    User Experience Design
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-date">
+                                    SEP 2020 — APR 2024
+                                </div>
+
+                                <div class="info-role">
+                                    Brock University
+                                </div>
+
+                                <div class="info-detail">
+                                    Bachelor of Business Administration —
+                                    Accounting
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
         </div>
+    </main>
 
-    </div>
-
-    <footer style="text-align: center; padding: 40px; color: var(--text-sub); font-size: 12px; border-top: 1px solid var(--glass-border);">
+    <footer>
         © 2026 Yuanya Song. All Rights Reserved.
     </footer>
 
