@@ -16,25 +16,25 @@
     <title>Yuanya Song | UX Designer Portfolio</title>
 
     <style>
-        /* ========================================
+        /* ==================================================
            1. 全局设置
-        ======================================== */
+        ================================================== */
 
         :root {
             --bg-main: #08080c;
-            --bg-section: #0b0b0f;
+            --bg-secondary: #0d0d12;
             --bg-card: #141418;
             --bg-card-hover: #19191f;
 
             --text-main: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.66);
-            --text-muted: rgba(255, 255, 255, 0.43);
+            --text-muted: rgba(255, 255, 255, 0.44);
 
             --accent: #d85bb7;
-            --accent-light: #f08bd5;
+            --accent-light: #f18bd6;
 
             --border: rgba(255, 255, 255, 0.10);
-            --border-hover: rgba(216, 91, 183, 0.45);
+            --border-hover: rgba(216, 91, 183, 0.46);
 
             --content-width: 1140px;
         }
@@ -72,12 +72,13 @@
         }
 
         img {
+            display: block;
             max-width: 100%;
         }
 
-        /* ========================================
+        /* ==================================================
            2. 顶部导航栏
-        ======================================== */
+        ================================================== */
 
         nav {
             position: fixed;
@@ -91,7 +92,7 @@
             align-items: center;
             justify-content: center;
 
-            background: rgba(8, 8, 12, 0.62);
+            background: rgba(8, 8, 12, 0.66);
             border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 
             backdrop-filter: blur(20px);
@@ -113,8 +114,8 @@
             color: #ffffff;
 
             font-size: 14px;
-            font-weight: 750;
-            letter-spacing: 1.5px;
+            font-weight: 760;
+            letter-spacing: 1.6px;
             text-transform: uppercase;
         }
 
@@ -138,10 +139,10 @@
             color: #ffffff;
         }
 
-        /* ========================================
-           3. 首屏 Hero
-           整张照片铺满，左边黑色渐变
-        ======================================== */
+        /* ==================================================
+           3. 首页 Hero
+           图片铺满首屏，人物位于右侧
+        ================================================== */
 
         .hero {
             position: relative;
@@ -153,39 +154,63 @@
             display: flex;
             align-items: center;
 
-            background-image:
+            background: var(--bg-main);
+            overflow: hidden;
+        }
+
+        /*
+            首屏整张照片。
+
+            object-position:
+            第一个数值控制左右裁切；
+            第二个数值控制上下裁切。
+
+            这张照片人物位于原图下方，
+            因此第二个数值设得较大，让人物脸部在网页中上移。
+        */
+
+        .hero-photo {
+            position: absolute;
+            top: 64px;
+            left: 0;
+
+            width: 100%;
+            height: calc(100vh - 64px);
+            min-height: 650px;
+
+            object-fit: cover;
+            object-position: 72% 78%;
+        }
+
+        /*
+            左侧深、右侧浅：
+            左侧文字清晰，同时还能隐约看到照片和建筑。
+        */
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+            background:
                 linear-gradient(
                     90deg,
                     rgba(8, 8, 12, 0.96) 0%,
-                    rgba(8, 8, 12, 0.90) 22%,
-                    rgba(8, 8, 12, 0.68) 42%,
-                    rgba(8, 8, 12, 0.24) 66%,
-                    rgba(8, 8, 12, 0.08) 100%
+                    rgba(8, 8, 12, 0.92) 20%,
+                    rgba(8, 8, 12, 0.76) 38%,
+                    rgba(8, 8, 12, 0.42) 55%,
+                    rgba(8, 8, 12, 0.12) 76%,
+                    rgba(8, 8, 12, 0.06) 100%
                 ),
                 linear-gradient(
                     0deg,
-                    rgba(8, 8, 12, 0.78) 0%,
-                    rgba(8, 8, 12, 0.20) 30%,
-                    rgba(8, 8, 12, 0.08) 72%,
-                    rgba(8, 8, 12, 0.14) 100%
-                ),
-                url("./profile.jpg");
+                    rgba(8, 8, 12, 0.90) 0%,
+                    rgba(8, 8, 12, 0.38) 24%,
+                    rgba(8, 8, 12, 0.06) 62%,
+                    rgba(8, 8, 12, 0.10) 100%
+                );
 
-            background-size: cover;
-
-            /*
-               第一个数值控制左右位置：
-               数值越大，画面越偏向照片右侧；
-               数值越小，画面越偏向照片左侧。
-
-               第二个数值控制上下位置：
-               数值越小，人物会显得更靠上；
-               数值越大，人物会显得更靠下。
-            */
-            background-position: 72% 20%;
-            background-repeat: no-repeat;
-
-            overflow: hidden;
+            pointer-events: none;
         }
 
         .hero::after {
@@ -194,9 +219,10 @@
             position: absolute;
             left: 0;
             bottom: -1px;
+            z-index: 2;
 
             width: 100%;
-            height: 150px;
+            height: 130px;
 
             background:
                 linear-gradient(
@@ -220,20 +246,20 @@
         }
 
         .hero-copy {
-            width: 54%;
-            max-width: 670px;
+            width: 57%;
+            max-width: 720px;
         }
 
         .hero-heading {
             color: #ffffff;
 
-            font-size: clamp(2.55rem, 4.25vw, 4.55rem);
+            font-size: clamp(2.35rem, 3.85vw, 4.25rem);
             font-weight: 820;
             line-height: 1.02;
             letter-spacing: -0.052em;
 
             text-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.34);
+                0 10px 30px rgba(0, 0, 0, 0.38);
         }
 
         .hero-heading span {
@@ -242,7 +268,7 @@
         }
 
         .hero-heading span + span {
-            margin-top: 13px;
+            margin-top: 14px;
         }
 
         .hero-tags {
@@ -257,11 +283,11 @@
             display: inline-flex;
             align-items: center;
 
-            padding: 8px 13px;
+            padding: 8px 14px;
 
             color: rgba(255, 255, 255, 0.92);
             background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.17);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 999px;
 
             backdrop-filter: blur(14px);
@@ -273,14 +299,14 @@
         }
 
         .hero-intro {
-            max-width: 610px;
+            max-width: 620px;
             margin-top: 25px;
 
-            color: rgba(255, 255, 255, 0.70);
+            color: rgba(255, 255, 255, 0.72);
 
             font-size: 16px;
             font-weight: 400;
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
         .hero-action {
@@ -315,9 +341,9 @@
             transform: translateY(-2px);
         }
 
-        /* ========================================
+        /* ==================================================
            4. 主体内容区
-        ======================================== */
+        ================================================== */
 
         .main-area {
             width: 100%;
@@ -381,9 +407,9 @@
                 );
         }
 
-        /* ========================================
+        /* ==================================================
            5. 项目卡片
-        ======================================== */
+        ================================================== */
 
         .bento-grid {
             display: grid;
@@ -547,9 +573,9 @@
             transform: translateY(-2px);
         }
 
-        /* ========================================
+        /* ==================================================
            6. 工作经历与教育背景
-        ======================================== */
+        ================================================== */
 
         .info-card {
             padding: 50px;
@@ -625,9 +651,9 @@
             line-height: 1.75;
         }
 
-        /* ========================================
+        /* ==================================================
            7. 联系方式
-        ======================================== */
+        ================================================== */
 
         .contact-card {
             padding: 70px 48px;
@@ -678,9 +704,9 @@
             line-height: 1.8;
         }
 
-        /* ========================================
-           8. Footer
-        ======================================== */
+        /* ==================================================
+           8. 页脚
+        ================================================== */
 
         footer {
             padding: 42px 24px;
@@ -693,23 +719,27 @@
             font-size: 12px;
         }
 
-        /* ========================================
-           9. 平板和手机适配
-        ======================================== */
+        /* ==================================================
+           9. 平板适配
+        ================================================== */
 
-        @media (max-width: 1000px) {
-            .hero {
-                background-position: 68% 20%;
+        @media (max-width: 1050px) {
+            .hero-photo {
+                object-position: 68% 78%;
             }
 
             .hero-copy {
-                width: 60%;
+                width: 61%;
             }
 
             .hero-heading {
-                font-size: clamp(2.2rem, 4.3vw, 3.6rem);
+                font-size: clamp(2.15rem, 4.3vw, 3.5rem);
             }
         }
+
+        /* ==================================================
+           10. 手机适配
+        ================================================== */
 
         @media (max-width: 820px) {
             nav {
@@ -724,28 +754,39 @@
                 gap: 18px;
             }
 
+            .nav-links a {
+                font-size: 12px;
+            }
+
             .hero {
                 min-height: 100svh;
                 padding-top: 58px;
-
                 align-items: flex-end;
+            }
 
-                background-image:
+            .hero-photo {
+                top: 58px;
+
+                height: calc(100svh - 58px);
+                min-height: 650px;
+
+                object-position: 53% 70%;
+            }
+
+            .hero-overlay {
+                background:
                     linear-gradient(
                         0deg,
-                        rgba(8, 8, 12, 0.97) 0%,
-                        rgba(8, 8, 12, 0.82) 31%,
-                        rgba(8, 8, 12, 0.18) 70%,
+                        rgba(8, 8, 12, 0.98) 0%,
+                        rgba(8, 8, 12, 0.88) 31%,
+                        rgba(8, 8, 12, 0.28) 63%,
                         rgba(8, 8, 12, 0.10) 100%
-                    ),
-                    url("./profile.jpg");
-
-                background-position: 54% 22%;
+                    );
             }
 
             .hero-content {
                 width: calc(100% - 36px);
-                padding: 80px 0 62px;
+                padding: 90px 0 62px;
             }
 
             .hero-copy {
@@ -754,7 +795,7 @@
             }
 
             .hero-heading {
-                font-size: clamp(2.05rem, 8vw, 3.35rem);
+                font-size: clamp(2rem, 8vw, 3.3rem);
                 line-height: 1.02;
             }
 
@@ -769,6 +810,7 @@
             .hero-intro {
                 max-width: 94%;
                 font-size: 14px;
+                line-height: 1.75;
             }
 
             .hero-tags {
@@ -843,20 +885,12 @@
                 font-size: 12px;
             }
 
-            .nav-links a {
-                font-size: 12px;
-            }
-
-            .hero {
-                background-position: 55% 18%;
+            .hero-photo {
+                object-position: 52% 68%;
             }
 
             .hero-heading {
-                font-size: clamp(1.92rem, 8.5vw, 2.85rem);
-            }
-
-            .hero-intro {
-                line-height: 1.7;
+                font-size: clamp(1.9rem, 8.6vw, 2.8rem);
             }
 
             .section-header {
@@ -885,9 +919,20 @@
         </div>
     </nav>
 
-    <!-- 首屏 -->
+    <!-- 首页 -->
     <header class="hero">
 
+        <!-- 整张照片 -->
+        <img
+            class="hero-photo"
+            src="./profile.jpg"
+            alt="Yuanya Song at the University of Toronto"
+        >
+
+        <!-- 照片遮罩 -->
+        <div class="hero-overlay"></div>
+
+        <!-- 左侧文字 -->
         <div class="hero-content">
 
             <div class="hero-copy">
