@@ -635,14 +635,84 @@
         }
 
         .toolkit-image {
-            background-image:
-                linear-gradient(
-                    135deg,
-                    rgba(102, 55, 135, 0.12),
-                    rgba(19, 28, 39, 0.18)
-                ),
-                url("./toolkit.jpg");
-        }
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 220px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            #171d2b,
+
+            #20283a
+
+        );
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    box-shadow:
+
+        0 14px 30px rgba(0,0,0,0.30);
+
+}
+
+/* 后面的 Home 页面 */
+
+.toolkit-main-image {
+
+    position: absolute;
+
+    width: 78%;
+
+    left: 4%;
+
+    top: 7%;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+
+        0 18px 35px rgba(0,0,0,0.45);
+
+    z-index: 1;
+
+}
+
+/* 前面的 Plan 页面 */
+
+.toolkit-secondary-image {
+
+    position: absolute;
+
+    width: 55%;
+
+    right: 4%;
+
+    bottom: 6%;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255,255,255,0.20);
+
+    box-shadow:
+
+        0 22px 40px rgba(0,0,0,0.55);
+
+    z-index: 2;
+
+}
 
         .biorush-image {
             background-image:
